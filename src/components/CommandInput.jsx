@@ -30,6 +30,7 @@ const CommandInput = ({ scenario, setScenario }) => { // (1)
     const nextTodoList = scenario.concat({ // (2)
       id: scenario.length, // (2-1)
       value, // (2-2)
+      deleted: false
     });
     setScenario(nextTodoList);
 
@@ -37,6 +38,7 @@ const CommandInput = ({ scenario, setScenario }) => { // (1)
     setValue('');
     inputRef.current.focus();
   };
+
 
   return (
     <div className="todoapp__inputbox">

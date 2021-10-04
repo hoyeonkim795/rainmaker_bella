@@ -34,9 +34,12 @@ const Scenario = ({ title, scenario, setScenario }) => {
       <p className="todoapp__list-tit">{title}</p>
       <ul className="todoapp__list-ul">
         {scenario && // todoList가 있을때만 출력
-        scenario.map((scenarioItem, i) => (
-          renderCard(scenarioItem, i)
-        ))}
+        scenario.map((scenarioItem, i) => {
+          if (scenarioItem.deleted) return null;
+          return(
+            renderCard(scenarioItem, i)
+          );
+        })}
       </ul>
     </div>
   );
