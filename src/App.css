@@ -35,6 +35,16 @@
   font-weight: bold;
 }
 
+.todoapp__createbox-add-btn {
+  border: none;
+  border-radius: 0;
+  background-color: #d0ebff;
+  color: #1c7ed6;
+  height: 50px;
+  width: 100px;
+  font-weight: bold;
+}
+
 /* ToDo Item List */
 .todoapp__list {
   margin-top: 30px;

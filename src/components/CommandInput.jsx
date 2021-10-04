@@ -26,7 +26,7 @@ const CommandInput = ({ scenario, setScenario }) => { // (1)
   );
 
   const onClickAddButton = () => {
-    // todoItemList에 값 추가
+
     const nextTodoList = scenario.concat({ // (2)
       id: scenario.length, // (2-1)
       value, // (2-2)
@@ -41,14 +41,16 @@ const CommandInput = ({ scenario, setScenario }) => { // (1)
 
 
   return (
+
     <div className="todoapp__inputbox">
+
       {/* 아이템 내용 입력 input */}
       <Select
         type="text"
         name="scenarioItem"
         value={value}
         ref={inputRef}
-        placeholder="할 일을 입력해주세요"
+        placeholder="청취자 행위를 선택해주세요"
         className="todoapp__inputbox-inp"
         options={options}
         onChange={handleChange}

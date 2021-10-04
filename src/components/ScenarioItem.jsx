@@ -73,7 +73,7 @@ const ScenarioItem = ({ index, id, moveCard, scenarioItem, scenario, setScenario
   // 삭제 기능
 
   const onClickDeleteButton = () =>
-  { if (window.confirm('정말로 지우실건가요?')) {
+  { if (window.confirm('삭제하시겠습니까?')) {
     const nextTodoList = scenario.map((item) => ({
       ...item,
       deleted: item.id === scenarioItem.id ? true : item.deleted,
