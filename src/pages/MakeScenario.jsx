@@ -17,10 +17,10 @@ const MakeScenario = () => {
 
   };
   return (
-    <div className="inputs_box">
-        <Users scenario={scenario} setScenario={setScenario} />
+    <div className="MakeScenario">
+      <Users scenario={scenario} setScenario={setScenario} />
 
-        <CommandInput scenario={scenario} setScenario={setScenario} />
+      <CommandInput scenario={scenario} setScenario={setScenario} />
 
       {/* 할 일 Item 리스트 */}
       <DndProvider backend={HTML5Backend}>
@@ -30,16 +30,17 @@ const MakeScenario = () => {
           setScenario={setScenario}
         />
       </DndProvider>
-      {scenario &&
-      <button
-        type="submit"
-        onClick={onClickAddButton}
-        className="todoapp__createbox-add-btn"
-      >
-        CREATE
-      </button>
-      }
-
+      {scenario && (
+        <div className='scenario-btn-box'>
+          <button
+            type="submit"
+            onClick={onClickAddButton}
+            className="create-scenario-btn"
+          >
+            해당 시나리오 생성하기
+          </button>
+        </div>
+      )}
     </div>
   );
 };

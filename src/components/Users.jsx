@@ -29,18 +29,18 @@ const Users = ({ scenario, setScenario }) => {
     );
 
     return (
-        <div>
-            <Select
-                type="text"
-                name="user"
-                value={user}
-                // ref={inputRef}
-                placeholder="청취자 종류를 선택하세요"
-                options={users}
-                onChange={handleChange}
-                onCreateOption={handleCreate}
-            />
-        </div>
+      <div className='Users'>
+        <Select
+          type="text"
+          name="user"
+          value={user}
+          // ref={inputRef}
+          placeholder="청취자 종류를 선택하세요"
+          options={users}
+          onChange={handleChange}
+          onCreateOption={handleCreate}
+        />
+      </div>
     );
 };
 

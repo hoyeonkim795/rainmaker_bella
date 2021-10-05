@@ -106,109 +106,110 @@ const CommandInput = ({ scenario, setScenario }) => { // (1)
 
 
   return (
-    <div className="input_default_setting_box">
+    <div className="input-box-container">
         {/* 아이템 내용 입력 input */}
-          <div className="select_events_box">
-            <Select
-                type="text"
-                name="scenarioItem"
-                value={value}
-                // ref={inputRef}
-                placeholder="청취자 행위를 선택해주세요"
-                options={options}
-                onChange={handleChange}
-                onCreateOption={handleCreate}
-            />
-          </div>
+        <div className="select_events_box">
+          <Select
+            type="text"
+            name="scenarioItem"
+            value={value}
+            // ref={inputRef}
+            placeholder="청취자 행위를 선택해주세요"
+            options={options}
+            onChange={handleChange}
+            onCreateOption={handleCreate}
+          />
+        </div>
       <div className="input_default_setting_box">
         <div className="input_name">
           <h3>이벤트 발생 시각을 입력하세요</h3>
         </div>
         <div className="input_box">
           <input
-              type="number"
-              name="period"
-              period={period}
-              // ref={inputRef}
-              placeholder="발생시각"
-              onChange={onChangePeriodInput}
+            className='input-tag'
+            type="number"
+            name="period"
+            period={period}
+            // ref={inputRef}
+            placeholder="발생시각"
+            onChange={onChangePeriodInput}
           />
         </div>
       </div>
-
       <div className="input_default_setting_box">
         <div className="input_name">
           <h3>이벤트 발생 횟수를 입력하세요</h3>
         </div>
         <div className="input_box">
           <input
-              type="number"
-              name="count"
-              count={count}
-              // ref={inputRef}
-              placeholder="카운트 수"
-              onChange={onChangeCountInput}
+            className='input-tag'
+            type="number"
+            name="count"
+            count={count}
+            // ref={inputRef}
+            placeholder="카운트 수"
+            onChange={onChangeCountInput}
           />
         </div>
       </div>
-
-      <div className="input_default_setting_box">
-        { value.value=="present" &&
-        <div>
-          <div className="input_name">
-            <h3>스티커 개수를 입력하세요</h3>
-          </div>
-          <div className="input_box">
-            <input
-                type="number"
-                name="amount"
-                amount={amount}
-                // ref={inputRef}
-                placeholder="amount"
-                onChange={onChangeAmountInput}
-            />
-          </div>
-          <div className="input_name">
-            <h3>콤보 개수를 입력하세요</h3>
-          </div>
-          <div className="input_box">
-            <input
-                type="number"
-                name="combo"
-                combo={combo}
-                // ref={inputRef}
-                placeholder="combo"
-                onChange={onChangeComboInput}
-            />
-          </div>
-          <div className="input_name">
-            <h3>스티커 종류를 선택하세요</h3>
-          </div>
-          <div className="input_box">
-            <Select
-                type="text"
-                name="sticker"
-                sticker={sticker}
-                placeholder="sticker"
-                options={stickerOptions}
-                onChange={handleStickerChange}
-                onCreateOption={handleStickerCreate}
-            />
+      {value.value=="present" && (
+        <div className="input_default_setting_box">
+          <div>
+            <div className="input_name">
+              <h3>스티커 개수를 입력하세요</h3>
+            </div>
+            <div className="input_box">
+              <input
+                className='input-tag'
+                  type="number"
+                  name="amount"
+                  amount={amount}
+                  // ref={inputRef}
+                  placeholder="amount"
+                  onChange={onChangeAmountInput}
+              />
+            </div>
+            <div className="input_name">
+              <h3>콤보 개수를 입력하세요</h3>
+            </div>
+            <div className="input_box">
+              <input
+                  type="number"
+                  name="combo"
+                  combo={combo}
+                  // ref={inputRef}
+                  placeholder="combo"
+                  onChange={onChangeComboInput}
+              />
+            </div>
+            <div className="input_name">
+              <h3>스티커 종류를 선택하세요</h3>
+            </div>
+            <div className="input_box">
+              <Select
+                  type="text"
+                  name="sticker"
+                  sticker={sticker}
+                  placeholder="sticker"
+                  options={stickerOptions}
+                  onChange={handleStickerChange}
+                  onCreateOption={handleStickerCreate}
+              />
+            </div>
           </div>
         </div>
-        }
-      </div>
+      )}
 
-
-        {/* 입력 후 아이템 추가 버튼 */}
+      {/* 입력 후 아이템 추가 버튼 */}
+      <div className="input-button-box">
         <button
           type="submit"
-          className="todoapp__inputbox-add-btn"
+          className="todoapp-add-btn"
           onClick={onClickAddButton}
         >
           추가
         </button>
-
+      </div>
     </div>
   );
 };

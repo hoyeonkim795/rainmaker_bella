@@ -15,44 +15,88 @@
 /*  align-items: center;*/
 /*}*/
 
-.inputs_box {
-  width: 100%;
-  align-items: center;
+.MakeScenario {
+  width: 992px;
+  margin: 50px auto;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid gray;
+}
+
+.Users {
+  margin: 0 0 20px;
 }
 
 .input_default_setting_box {
+  margin: 10px 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid darkgray;
 }
 
-.input_name {
-  width: 70%;
-  display: inline-block;
+.input-tag {
+  height: 30px;
+  width: 300px;
+  padding: 5px;
 }
 
-.input_box {
-  width: 10%;
-  display: inline-block;
-}
-
-/*.todoapp__inputbox-inp {*/
-/*  flex: 1;*/
-/*  border: none;*/
-/*  border-bottom: 1px solid #f1f3f5;*/
-/*  padding: 10px;*/
-/*  height: 50px;*/
-/*  box-sizing: border-box;*/
-/*}*/
 .todoapp__inputbox-inp:focus {
   outline: none;
 }
-.todoapp__inputbox-add-btn {
+
+.input-button-box {
+  display: flex;
+  justify-content: center;
+}
+
+.todoapp-add-btn {
   border: none;
-  border-radius: 0;
+  border-radius: 10px;
   background-color: #d0ebff;
   color: #1c7ed6;
   height: 50px;
-  width: 50px;
+  width: 500px;
   font-weight: bold;
+}
+
+.todoapp__list-ul {
+  list-style: none;
+  padding: 0;
+}
+
+.todoapp__item {
+  height: 36px;
+}
+
+.todoapp-add-btn:hover {
+  background-color: #d0e0ff;
+  cursor: pointer;
+}
+
+.todoapp__item-delete-btn {
   float: right;
+}
+
+.scenario-btn-box {
+  margin: 10px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.create-scenario-btn {
+  border: none;
+  border-radius: 10px;
+  background-color: #d0ebff;
+  color: #1c7ed6;
+  height: 50px;
+  width: 500px;
+  font-weight: bold;
+}
+
+.create-scenario-btn:hover {
+  cursor: pointer;
+  background-color: #d0e0ff;
 }
 
 /*CommandInput*/
