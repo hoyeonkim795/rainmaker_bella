@@ -4,6 +4,7 @@ import Scenario from "../components/Scenario";
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import Select from 'react-select';
+import Users from "../components/Users";
 
 const MakeScenario = () => {
   const [scenario, setScenario] = useState([]);
@@ -16,12 +17,10 @@ const MakeScenario = () => {
 
   };
   return (
-    <div>
-      <Select>
+    <div className="inputs_box">
+        <Users scenario={scenario} setScenario={setScenario} />
 
-      </Select>
-
-      <CommandInput scenario={scenario} setScenario={setScenario} />
+        <CommandInput scenario={scenario} setScenario={setScenario} />
 
       {/* 할 일 Item 리스트 */}
       <DndProvider backend={HTML5Backend}>

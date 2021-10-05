@@ -39,48 +39,68 @@ const DefaultSetting = ({ defaultSetting, setDefaultSetting }) => {
   };
 
   return (
-    <div className="todoapp__inputbox">
+    <div className="inputs_box">
       {/* 아이템 내용 입력 input */}
-      <input
-        type="number"
-        name="todoItem"
-        value={roomId}
-        ref={inputRef}
-        placeholder="방 번호"
-        className="todoapp__inputbox-inp"
-        onChange={onChangeRoomIdInput}
-      />
+        <div className="input_default_setting_box">
+            <div className="input_name">
+                <h3>방 번호를 입력하세요</h3>
+            </div>
+            <div className="input_box">
+                <input
+                    type="number"
+                    name="todoItem"
+                    value={roomId}
+                    ref={inputRef}
+                    placeholder="방 번호"
+                    onChange={onChangeRoomIdInput}
+                />
+            </div>
+        </div>
 
-      <input
-        type="number"
-        name="todoItem"
-        value={userCount}
-        ref={inputRef}
-        placeholder="청취자 전체 수"
-        className="todoapp__inputbox-inp"
-        onChange={onChangeUserCountInput}
-      />
+        <div className="input_default_setting_box">
+            <div className="input_name">
+                <h3>전체 청취자 수를 입력하세요</h3>
+            </div>
+            <div className="input_box">
+                <input
+                    type="number"
+                    name="userCount"
+                    value={userCount}
+                    ref={inputRef}
+                    placeholder="청취자 전체 수"
+                    onChange={onChangeUserCountInput}
+                />
+            </div>
+        </div>
 
-      <input
-        type="number"
-        name="todoItem"
-        value={scenarioCount}
-        ref={inputRef}
-        placeholder="시나리오 개수"
-        className="todoapp__inputbox-inp"
-        onChange={onChangeScenarioCountInput}
-      />
+        <div className="input_default_setting_box">
+            <div className="input_name">
+                <h3>생성할 시나리오 개수를 입력하세요</h3>
+            </div>
+            <div className="input_box">
+                <input
+                    type="number"
+                    name="scenarioCount"
+                    value={scenarioCount}
+                    ref={inputRef}
+                    placeholder="시나리오 개수"
+                    onChange={onChangeScenarioCountInput}
+                />
+            </div>
+        </div>
 
-      {/*roomId: 1, userCount: 1000 scenarioCount: 3*/}
-      <Link to="/scenario/1/1000/3">
-        <button
-          type="submit"
-          className="todoapp__inputbox-add-btn"
-          onClick={onClickAddButton}
-        >
-          입력 완료
-        </button>
-      </Link>
+        <div className="input_default_setting_box">
+            {/*roomId: 1, userCount: 1000 scenarioCount: 3*/}
+            <Link to="/scenario/1/1000/3">
+                <button
+                    type="submit"
+                    className="todoapp__inputbox-add-btn"
+                    onClick={onClickAddButton}
+                >
+                    입력 완료
+                </button>
+            </Link>
+        </div>
     </div>
   );
 };

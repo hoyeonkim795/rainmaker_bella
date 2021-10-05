@@ -31,7 +31,7 @@ const Scenario = ({ title, scenario, setScenario }) => {
   return(
     <div className="todoapp__list">
       {/* props로 부터 title 값을 전달 받음 */}
-      <p className="todoapp__list-tit">{title}</p>
+      <h2 className="todoapp__list-tit">{title}</h2>
       <ul className="todoapp__list-ul">
         {scenario &&
         scenario.map((scenarioItem, i) => {
