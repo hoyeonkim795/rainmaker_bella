@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom'
 
 const DefaultSetting = ({ defaultSetting, setDefaultSetting }) => {
   const [roomId, setRoomId] = useState('');
@@ -44,7 +45,7 @@ const DefaultSetting = ({ defaultSetting, setDefaultSetting }) => {
         name="todoItem"
         value={roomId}
         ref={inputRef}
-        placeholder="방 번호를 입력하세요"
+        placeholder="방 번호"
         className="todoapp__inputbox-inp"
         onChange={onChangeRoomIdInput}
       />
@@ -54,7 +55,7 @@ const DefaultSetting = ({ defaultSetting, setDefaultSetting }) => {
         name="todoItem"
         value={userCount}
         ref={inputRef}
-        placeholder="청취자 전체 수를 입력해주세요"
+        placeholder="청취자 전체 수"
         className="todoapp__inputbox-inp"
         onChange={onChangeUserCountInput}
       />
@@ -64,19 +65,21 @@ const DefaultSetting = ({ defaultSetting, setDefaultSetting }) => {
         name="todoItem"
         value={scenarioCount}
         ref={inputRef}
-        placeholder="시나리오 개수를 입력해주세요"
+        placeholder="시나리오 개수"
         className="todoapp__inputbox-inp"
         onChange={onChangeScenarioCountInput}
       />
 
-      {/* 입력 후 아이템 추가 버튼 */}
-      <button
-        type="submit"
-        className="todoapp__inputbox-add-btn"
-        onClick={onClickAddButton}
-      >
-        추가
-      </button>
+
+      <Link to="../pages/MakeScenario">
+        <button
+          type="submit"
+          className="todoapp__inputbox-add-btn"
+          onClick={onClickAddButton}
+        >
+          입력 완료
+        </button>
+      </Link>
     </div>
   );
 };
