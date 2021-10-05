@@ -60,6 +60,10 @@
   font-weight: bold;
 }
 
+.todoapp__list-thead {
+  padding: 0 20px;
+}
+
 .todoapp__list-ul {
   list-style: none;
   padding: 0;
@@ -67,15 +71,19 @@
 
 .todoapp__item {
   height: 36px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.todoapp__item-ctx {
+  display: inline-block;
+  width: 150px;
 }
 
 .todoapp-add-btn:hover {
   background-color: #d0e0ff;
   cursor: pointer;
-}
-
-.todoapp__item-delete-btn {
-  float: right;
 }
 
 .scenario-btn-box {

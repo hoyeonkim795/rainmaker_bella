@@ -6,15 +6,21 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import Select from 'react-select';
 import Users from "../components/Users";
 
-const MakeScenario = () => {
+const MakeScenario = ({ match }) => {
   const [scenario, setScenario] = useState([]);
-
   const [users, setUsers] = useState()
+
+  // TODO: query string 사용
+  const { params } = match
+  console.log(params) // {roomId: '1', userCount: '1000', scenarioCount: '3'}
+
+  const isScenarioEmpty = () => {
+    return Array.isArray(scenario) && scenario.length === 0
+  }
 
   const onClickAddButton = () => {
     console.log("시나리오 생성 !!!")
     console.log(scenario)
-
   };
   return (
     <div className="MakeScenario">
@@ -30,7 +36,8 @@ const MakeScenario = () => {
           setScenario={setScenario}
         />
       </DndProvider>
-      {scenario && (
+
+      {!isScenarioEmpty() && (
         <div className='scenario-btn-box'>
           <button
             type="submit"

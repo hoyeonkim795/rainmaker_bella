@@ -32,9 +32,14 @@ const Scenario = ({ title, scenario, setScenario }) => {
     <div className="todoapp__list">
       {/* props로 부터 title 값을 전달 받음 */}
       <h2 className="todoapp__list-tit">{title}</h2>
+      <div className="todoapp__list-thead">
+        <span className='todoapp__item-ctx'>EVENT</span>
+        <span className='todoapp__item-ctx'>PERIOD</span>
+        <span className='todoapp__item-ctx'>COUNT</span>
+        <span className='todoapp__item-ctx'>DATA</span>
+      </div>
       <ul className="todoapp__list-ul">
-        {scenario &&
-        scenario.map((scenarioItem, i) => {
+        {scenario && scenario.map((scenarioItem, i) => {
           if (scenarioItem.deleted) return null;
           return(
             renderCard(scenarioItem, i)

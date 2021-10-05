@@ -88,19 +88,24 @@ const ScenarioItem = ({ index, id, moveCard, scenarioItem, scenario, setScenario
   return(
     <li ref={ref} style={{ ...style, opacity }} data-handler-id={handlerId} className="todoapp__item">
       {/* 아이템 내용 */}
-      <span className="todoapp__item-ctx">{scenarioItem.value.label}</span>
-      {/*옵션 값들*/}
-      <span> Period : {scenarioItem.period}</span>
-      <span> Count : {scenarioItem.count}</span>
-      {
-        scenarioItem.value.value=="present" &&
-        <span>  Data : {scenarioItem.data.amount} / {scenarioItem.data.combo} / {scenarioItem.data.sticker}</span>
-      }
+      <div>
+        <span className="todoapp__item-ctx">{scenarioItem.value.label}</span>
+        {/*옵션 값들*/}
+        <span className="todoapp__item-ctx"> Period : {scenarioItem.period}</span>
+        <span className="todoapp__item-ctx"> Count : {scenarioItem.count}</span>
+        {scenarioItem.value.value=="present" && (
+          <span className="todoapp__item-ctx">
+            Data : {scenarioItem.data.amount} / {scenarioItem.data.combo} / {scenarioItem.data.sticker}
+          </span>
+        )}
+      </div>
 
-      {/* 삭제 버튼 */}
-      <button type="button" className="todoapp__item-delete-btn" onClick={onClickDeleteButton}>
-        🗑
-      </button>
+      <div>
+        {/* 삭제 버튼 */}
+        <button type="button" className="todoapp__item-delete-btn" onClick={onClickDeleteButton}>
+          🗑
+        </button>
+      </div>
     </li>
   );
 }
