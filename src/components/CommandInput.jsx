@@ -71,7 +71,7 @@ const CommandInput = ({ scenario, setScenario }) => { // (1)
         "sticker":sticker.value
       }
 
-      const nextTodoList = scenario.concat({ // (2)
+      const nextScenario = scenario.concat({ // (2)
         id: scenario.length, // (2-1)
         value, // (2-2)
         period,
@@ -79,23 +79,28 @@ const CommandInput = ({ scenario, setScenario }) => { // (1)
         data,
         deleted: false
       });
-      setScenario(nextTodoList);
-      console.log(nextTodoList)
+      setScenario(nextScenario);
+      console.log(nextScenario)
     } else {
-      const nextTodoList = scenario.concat({ // (2)
+      const nextScenario = scenario.concat({ // (2)
         id: scenario.length, // (2-1)
         value, // (2-2)
         period,
         count,
         deleted: false
       });
-      setScenario(nextTodoList);
-      console.log(nextTodoList)
+      setScenario(nextScenario);
+      console.log(nextScenario)
     }
 
 
     // input 값 초기화 및 포커싱
     setValue('');
+    setCombo('');
+    setPeriod('');
+    setCount('');
+    setSticker('');
+    setAmount('');
     inputRef.current.focus();
   };
 

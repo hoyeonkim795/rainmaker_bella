@@ -14,16 +14,11 @@ const Home = () => {
 
   return (
     <div className="homepage__container">
-      {/*<Route path="/"*/}
-      {/*       render={() =>*/}
-      {/*         <DefaultSetting defaultSetting={defaultSetting} setDefaultSetting={setDefaultSetting} />}*/}
-      {/*       exact />*/}
-      {/*<Route path="pages/MakeScenario"*/}
-      {/*render={() =>*/}
-      {/*<MakeScenario/>} />*/}
       <DefaultSetting defaultSetting={defaultSetting} setDefaultSetting={setDefaultSetting}/>
 
-      <MakeScenario/>
+      {/*<DefaultSetting defaultSetting={defaultSetting} setDefaultSetting={setDefaultSetting}/>*/}
+
+      {/*<MakeScenario/>*/}
     </div>
   );
 };

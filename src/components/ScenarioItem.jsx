@@ -74,16 +74,29 @@ const ScenarioItem = ({ index, id, moveCard, scenarioItem, scenario, setScenario
 
   const onClickDeleteButton = () =>
   { if (window.confirm('삭제하시겠습니까?')) {
-    const nextTodoList = scenario.map((item) => ({
+    const nextScenario = scenario.map((item) => ({
       ...item,
       deleted: item.id === scenarioItem.id ? true : item.deleted,
     }));
-    setScenario(nextTodoList); } };
+    //변수에 값이 삭제되지 않아 추가 기능 개발 필요
+    setScenario(nextScenario);
+    console.log("삭제!!")
+    console.log(nextScenario)
+  } };
+
 
   return(
     <li ref={ref} style={{ ...style, opacity }} data-handler-id={handlerId} className="todoapp__item">
       {/* 아이템 내용 */}
       <span className="todoapp__item-ctx">{scenarioItem.value.label}</span>
+      {/*옵션 값들*/}
+      <span> Period : {scenarioItem.period}</span>
+      <span> Count : {scenarioItem.count}</span>
+      {
+        scenarioItem.value.value=="present" &&
+        <span>  Data : {scenarioItem.data.amount} / {scenarioItem.data.combo} / {scenarioItem.data.sticker}</span>
+      }
+
       {/* 삭제 버튼 */}
       <button type="button" className="todoapp__item-delete-btn" onClick={onClickDeleteButton}>
         🗑

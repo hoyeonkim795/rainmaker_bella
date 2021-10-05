@@ -1,19 +1,26 @@
 import React, { useState } from 'react';
 import CommandInput from '../components/CommandInput';
-import DefaultSetting from "../components/DefaultSetting";
 import Scenario from "../components/Scenario";
-import { DndProvider } from 'react-dnd'
-import { HTML5Backend } from 'react-dnd-html5-backend'
-import OptionInput from "../components/OptionInput";
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import Select from 'react-select';
 
 const MakeScenario = () => {
   const [scenario, setScenario] = useState([]);
 
+  const [users, setUsers] = useState()
+
   const onClickAddButton = () => {
+    console.log("시나리오 생성 !!!")
+    console.log(scenario)
 
   };
   return (
     <div>
+      <Select>
+
+      </Select>
+
       <CommandInput scenario={scenario} setScenario={setScenario} />
 
       {/* 할 일 Item 리스트 */}

@@ -1,11 +1,12 @@
 import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom'
+import MakeScenario from "../pages/MakeScenario";
+import { Link, Route, Switch } from 'react-router-dom'
 
 const DefaultSetting = ({ defaultSetting, setDefaultSetting }) => {
-  const [roomId, setRoomId] = useState('');
-  const [userCount, setUserCount] = useState('');
-  const [scenarioCount, setScenarioCount] = useState('');
+  const [roomId, setRoomId] = useState(0);
+  const [userCount, setUserCount] = useState(1);
+  const [scenarioCount, setScenarioCount] = useState(1);
 
   const inputRef = useRef(null);
 
@@ -70,8 +71,8 @@ const DefaultSetting = ({ defaultSetting, setDefaultSetting }) => {
         onChange={onChangeScenarioCountInput}
       />
 
-
-      <Link to="../pages/MakeScenario">
+      {/*roomId: 1, userCount: 1000 scenarioCount: 3*/}
+      <Link to="/scenario/1/1000/3">
         <button
           type="submit"
           className="todoapp__inputbox-add-btn"
@@ -85,14 +86,6 @@ const DefaultSetting = ({ defaultSetting, setDefaultSetting }) => {
 };
 
 // props 값 검증
-DefaultSetting.propTypes = {
-  userCount: PropTypes.arrayOf( // (3)
-    PropTypes.shape({ // (3-1)
-      id: PropTypes.number.isRequired, // (3-2)
-      userCount: PropTypes.number.isRequired, // (3-3)
-    }).isRequired
-  ),
-  setUserCount: PropTypes.func.isRequired, // (4)
-};
+
 
 export default DefaultSetting;

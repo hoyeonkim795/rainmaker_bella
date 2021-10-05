@@ -33,7 +33,7 @@ const Scenario = ({ title, scenario, setScenario }) => {
       {/* props로 부터 title 값을 전달 받음 */}
       <p className="todoapp__list-tit">{title}</p>
       <ul className="todoapp__list-ul">
-        {scenario && // todoList가 있을때만 출력
+        {scenario &&
         scenario.map((scenarioItem, i) => {
           if (scenarioItem.deleted) return null;
           return(
