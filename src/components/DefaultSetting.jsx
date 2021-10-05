@@ -39,7 +39,7 @@ const DefaultSetting = ({ defaultSetting, setDefaultSetting }) => {
   };
 
   return (
-    <div className="inputs_box">
+    <div className="DefaultSetting">
       {/* 아이템 내용 입력 input */}
         <div className="input_default_setting_box">
             <div className="input_name">
@@ -47,6 +47,7 @@ const DefaultSetting = ({ defaultSetting, setDefaultSetting }) => {
             </div>
             <div className="input_box">
                 <input
+                    className='input-default-setting-tag'
                     type="number"
                     name="todoItem"
                     value={roomId}
@@ -63,6 +64,7 @@ const DefaultSetting = ({ defaultSetting, setDefaultSetting }) => {
             </div>
             <div className="input_box">
                 <input
+                    className='input-default-setting-tag'
                     type="number"
                     name="userCount"
                     value={userCount}
@@ -79,6 +81,7 @@ const DefaultSetting = ({ defaultSetting, setDefaultSetting }) => {
             </div>
             <div className="input_box">
                 <input
+                    className='input-default-setting-tag'
                     type="number"
                     name="scenarioCount"
                     value={scenarioCount}
@@ -89,12 +92,11 @@ const DefaultSetting = ({ defaultSetting, setDefaultSetting }) => {
             </div>
         </div>
 
-        <div className="input_default_setting_box">
-            {/*roomId: 1, userCount: 1000 scenarioCount: 3*/}
-            <Link to="/scenario/1/1000/3">
+        <div className="default-setting-btn-box">
+            <Link to={`/scenario/${roomId}/${userCount}/${scenarioCount}`}>
                 <button
                     type="submit"
-                    className="todoapp__inputbox-add-btn"
+                    className="create-default-setting-btn"
                     onClick={onClickAddButton}
                 >
                     입력 완료

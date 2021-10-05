@@ -174,6 +174,7 @@ const CommandInput = ({ scenario, setScenario }) => { // (1)
             </div>
             <div className="input_box">
               <input
+                  className='input-tag'
                   type="number"
                   name="combo"
                   combo={combo}

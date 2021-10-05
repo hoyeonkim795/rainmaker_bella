@@ -16,12 +16,19 @@
 /*}*/
 
 .MakeScenario {
-  width: 992px;
+  width: 800px;
   margin: 50px auto;
   padding: 20px;
   border-radius: 10px;
   border: 1px solid gray;
 }
+
+.DefaultSetting {
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid gray;
+}
+
 
 .Users {
   margin: 0 0 20px;
@@ -37,8 +44,16 @@
 
 .input-tag {
   height: 30px;
-  width: 300px;
+  width: 100px;
   padding: 5px;
+  font-size: 18px;
+}
+
+.input-default-setting-tag {
+  height: 30px;
+  width: 100px;
+  padding: 5px;
+  font-size: 13px;
 }
 
 .todoapp__inputbox-inp:focus {
@@ -79,6 +94,7 @@
 .todoapp__item-ctx {
   display: inline-block;
   width: 150px;
+  align-items: center;
 }
 
 .todoapp-add-btn:hover {
@@ -103,6 +119,27 @@
 }
 
 .create-scenario-btn:hover {
+  cursor: pointer;
+  background-color: #d0e0ff;
+}
+
+.default-setting-btn-box {
+  margin: 10px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.create-default-setting-btn {
+  border: none;
+  border-radius: 10px;
+  background-color: #d0ebff;
+  color: #1c7ed6;
+  height: 50px;
+  width: 300px;
+  font-weight: bold;
+}
+
+.create-default-setting-btn:hover {
   cursor: pointer;
   background-color: #d0e0ff;
 }
