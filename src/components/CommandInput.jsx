@@ -2,7 +2,9 @@ import React, { useRef, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import Select from "react-select";
 
-const CommandInput = ({ scenario, setScenario }) => { // (1)
+const CommandInput = ({ user, scenario, setScenario }) => { // (1)
+
+  console.log(user)
 
   const [value, setValue] = useState('');
   const [sticker, setSticker] = useState('');
@@ -122,7 +124,7 @@ const CommandInput = ({ scenario, setScenario }) => { // (1)
         </div>
       <div className="input_default_setting_box">
         <div className="input_name">
-          <h3>이벤트 발생 시각을 입력하세요</h3>
+          <h3>이벤트 발생 후 Delay time을 입력하세요</h3>
         </div>
         <div className="input_box">
           <input

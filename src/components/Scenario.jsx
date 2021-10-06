@@ -34,7 +34,7 @@ const Scenario = ({ title, scenario, setScenario }) => {
       <h2 className="todoapp__list-tit">{title}</h2>
       <div className="todoapp__list-thead">
         <span className='todoapp__item-ctx'>EVENT</span>
-        <span className='todoapp__item-ctx'>PERIOD</span>
+        <span className='todoapp__item-ctx'>DELAY TIME</span>
         <span className='todoapp__item-ctx'>COUNT</span>
         <span className='todoapp__item-ctx'>DATA</span>
       </div>

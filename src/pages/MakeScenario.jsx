@@ -8,11 +8,11 @@ import Users from "../components/Users";
 
 const MakeScenario = ({ match }) => {
   const [scenario, setScenario] = useState([]);
-  const [users, setUsers] = useState()
 
   // TODO: query string 사용
   const { params } = match
   console.log(params) // {roomId: '1', userCount: '1000', scenarioCount: '3'}
+  const userCount = params.userCount
 
   const isScenarioEmpty = () => {
     return Array.isArray(scenario) && scenario.length === 0
@@ -24,8 +24,8 @@ const MakeScenario = ({ match }) => {
   };
   return (
     <div className="MakeScenario">
-      <Users scenario={scenario} setScenario={setScenario} />
-
+      {/*<Users users={users} scenario={scenario} setScenario={setScenario} />*/}
+      {/*<Users userCount={userCount} />*/}
       <CommandInput scenario={scenario} setScenario={setScenario} />
 
       {/* 할 일 Item 리스트 */}
