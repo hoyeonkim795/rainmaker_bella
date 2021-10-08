@@ -2,6 +2,7 @@ import React, {useCallback, useRef, useState} from 'react';
 import Select from "react-select";
 
 const UserType=({}) => {
+    const [appVersion, setAppversion] = useState('')
     const [value, setValue] = useState([]);
     const [os, setOS] = useState([
             {
@@ -16,11 +17,9 @@ const UserType=({}) => {
         ]
     );
 
-    const [appVersion, setappVersion] = useState(
-        {
-            label: "PRD"
-        }
-    )
+    const onChangeAppVersionInput = (e) => {
+        setAppversion(e.target.value);
+    };
 
     const handleChange = useCallback((inputValue) => setValue(inputValue), []);
 
@@ -34,15 +33,28 @@ const UserType=({}) => {
     );
 
     return (
-        <Select
-            type="text"
-            name="user"
-            value={value}
-            placeholder="청취자 종류를 선택하세요"
-            options={os}
-            onChange={handleChange}
-            onCreateOption={handleCreate}
-        />
+        <div>
+            <Select
+                type="text"
+                name="user"
+                value={value}
+                placeholder="청취자 종류를 선택하세요"
+                options={os}
+                onChange={handleChange}
+                onCreateOption={handleCreate}
+            />
+
+            <input
+                className='input-tag'
+                type="number"
+                name="appversion"
+                appVersion={appVersion}
+                // ref={inputRef}
+                placeholder="combo"
+                onChange={onChangeAppVersionInput}
+            />
+
+        </div>
     );
 };
 

@@ -85,12 +85,12 @@ const CommandInput = ({ user, scenario, setScenario }) => { // (1)
             deleted: false
           });
           setScenario(nextScenario);
-          console.log(nextScenario)
+          console.log(nextScenario)  
         }
         else {
           alert("필수 값 입력")
         }
-
+        
       } else {
         const nextScenario = scenario.concat({ // (2)
           id: scenario.length, // (2-1)
@@ -117,7 +117,7 @@ const CommandInput = ({ user, scenario, setScenario }) => { // (1)
 
   return (
     <div className="input-box-container">
-        {/* 아이템 내용 입력 input */}
+        {/* 필수값 */}
         <div className="select_events_box">
           <Select
             type="text"
@@ -141,7 +141,7 @@ const CommandInput = ({ user, scenario, setScenario }) => { // (1)
             name="period"
             period={period}
             // ref={inputRef}
-            placeholder="발생시각"
+            placeholder="delay time"
             onChange={onChangePeriodInput}
           />
         </div>
@@ -157,7 +157,7 @@ const CommandInput = ({ user, scenario, setScenario }) => { // (1)
             name="count"
             count={count}
             // ref={inputRef}
-            placeholder="카운트 수"
+            placeholder="count"
             onChange={onChangeCountInput}
           />
         </div>
