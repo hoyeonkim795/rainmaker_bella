@@ -65,36 +65,44 @@ const CommandInput = ({ user, scenario, setScenario }) => { // (1)
   );
 
   const onClickAddButton = () => {
-    console.log(scenario)
-    if (value.value == "present") {
-      const data = {
-        "amount":amount,
-        "combo":combo,
-        "sticker":sticker.value
-      }
-
-      const nextScenario = scenario.concat({ // (2)
-        id: scenario.length, // (2-1)
-        value, // (2-2)
-        period,
-        count,
-        data,
-        deleted: false
-      });
-      setScenario(nextScenario);
-      console.log(nextScenario)
+    if (value == '') {
+      alert("필수값 입력")
     } else {
-      const nextScenario = scenario.concat({ // (2)
-        id: scenario.length, // (2-1)
-        value, // (2-2)
-        period,
-        count,
-        deleted: false
-      });
-      setScenario(nextScenario);
-      console.log(nextScenario)
-    }
+      if (value.value == "present") {
+        if (amount != '' && combo != '' && sticker != '') {
+          const data = {
+            "amount":amount,
+            "combo":combo,
+            "sticker":sticker.value
+          }
 
+          const nextScenario = scenario.concat({ // (2)
+            id: scenario.length, // (2-1)
+            value, // (2-2)
+            period,
+            count,
+            data,
+            deleted: false
+          });
+          setScenario(nextScenario);
+          console.log(nextScenario)
+        }
+        else {
+          alert("필수 값 입력")
+        }
+
+      } else {
+        const nextScenario = scenario.concat({ // (2)
+          id: scenario.length, // (2-1)
+          value, // (2-2)
+          period,
+          count,
+          deleted: false
+        });
+        setScenario(nextScenario);
+        console.log(nextScenario)
+      }
+    }
 
     // input 값 초기화 및 포커싱
     setValue('');
