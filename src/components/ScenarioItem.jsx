@@ -74,14 +74,20 @@ const ScenarioItem = ({ index, id, moveCard, scenarioItem, scenario, setScenario
 
   const onClickDeleteButton = () =>
   { if (window.confirm('삭제하시겠습니까?')) {
-    const nextScenario = scenario.map((item) => ({
+    // const nextScenario = scenario.map((item, key) => ({
+    //   ...item,
+    //   deleted: item.id === scenarioItem.id ? true : item.deleted,
+    // }));
+
+    const nextScenario = scenario.filter((item)=> item.id != scenarioItem.id)
+    const finalScenario = nextScenario.map((item) => ({
       ...item,
-      deleted: item.id === scenarioItem.id ? true : item.deleted,
+      id: item.id >= scenarioItem.id ? item.id-1 : item.id,
     }));
-    //변수에 값이 삭제되지 않아 추가 기능 개발 필요
-    setScenario(nextScenario);
+
+    setScenario(finalScenario);
     console.log("삭제!!")
-    console.log(nextScenario)
+
   } };
 
 

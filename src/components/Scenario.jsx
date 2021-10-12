@@ -40,7 +40,6 @@ const Scenario = ({ title, scenario, setScenario }) => {
       </div>
       <ul className="todoapp__list-ul">
         {scenario && scenario.map((scenarioItem, i) => {
-          if (scenarioItem.deleted) return null;
           return(
             renderCard(scenarioItem, i)
           );
