@@ -1,7 +1,7 @@
 import React, {useCallback, useRef, useState} from 'react';
 import Select from "react-select";
 
-const UserType=({}) => {
+const UserType=({user, users, setUsers}) => {
     const [appVersion, setAppversion] = useState('')
     const [value, setValue] = useState([]);
     const [os, setOS] = useState([
@@ -38,21 +38,20 @@ const UserType=({}) => {
                 type="text"
                 name="user"
                 value={value}
-                placeholder="청취자 종류를 선택하세요"
+                placeholder="청취자 OS를 선택하세요"
                 options={os}
                 onChange={handleChange}
-                onCreateOption={handleCreate}
             />
-
+            <br/>
             <input
-                className='input-tag'
+                className='input-appversion-tag'
                 type="number"
-                name="appversion"
-                appVersion={appVersion}
-                // ref={inputRef}
-                placeholder="combo"
+                name="appVersion"
+                value={appVersion}
+                placeholder="앱 버전을 입력하세요"
                 onChange={onChangeAppVersionInput}
             />
+            <br/>
 
         </div>
     );

@@ -6,12 +6,31 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import queryString from 'query-string';
 import Select from 'react-select';
 import axios from "axios";
+import UserType from "../components/UserType";
+import User from "../components/User";
 
 const MakeScenario = ({ location }) => {
   const [scenario, setScenario] = useState([]);
 
   const parsed = queryString.parse(location.search);
-  console.log(parsed.roomId, parsed.userCount, parsed.scenarioCount)
+  // query string 넘기기
+  // console.log(parsed.roomId, parsed.userCount, parsed.scenarioCount)
+
+  const [users, setUsers] = useState(Array.from({length: parsed.scenarioCount}, (v,i)=> i = {
+    "label": i,
+    "value": {
+      "access_control": true,
+      "user_agent":"",
+      "app_version": "",
+      "scenario": {
+        "commands": [
+
+        ]
+    }
+    }
+  }));
+  console.log(users)
+  const [user, setUser] = useState([]);
 
 
   const isScenarioEmpty = () => {
@@ -36,31 +55,43 @@ const MakeScenario = ({ location }) => {
 
   };
   return (
-    <div className="MakeScenario">
+      <div>
+        <div className="MakeScenario">
+          <User users={users} user={user} setUser={setUser}/>
+          <div>
+            <h1>청취자 환경</h1>
+          </div>
+          <UserType user={user} users={users} setUsers={setUsers}/>
 
-      <CommandInput scenario={scenario} setScenario={setScenario} />
+          <div>
+            <h1>청취자 이벤트</h1>
+          </div>
 
-      {/* 할 일 Item 리스트 */}
-      <DndProvider backend={HTML5Backend}>
-        <Scenario    // (1)
-          title={'시나리오'}
-          scenario={scenario}
-          setScenario={setScenario}
-        />
-      </DndProvider>
+          <CommandInput user={user} users={users} setUsers={setUsers} scenario={scenario} setScenario={setScenario} />
 
-      {!isScenarioEmpty() && (
-        <div className='scenario-btn-box'>
-          <button
-            type="submit"
-            onClick={onClickAddButton}
-            className="create-scenario-btn"
-          >
-            해당 시나리오 생성하기
-          </button>
+          {/* 할 일 Item 리스트 */}
+          <DndProvider backend={HTML5Backend}>
+            <Scenario    // (1)
+                title={'시나리오'}
+                users={users}
+                setUsers={setUsers}
+                scenario={scenario}
+                setScenario={setScenario}
+            />
+          </DndProvider>
         </div>
-      )}
-    </div>
+        {!isScenarioEmpty() && (
+            <div className='scenario-btn-box'>
+              <button
+                  type="submit"
+                  onClick={onClickAddButton}
+                  className="create-scenario-btn"
+              >
+                시나리오 생성하기
+              </button>
+            </div>
+        )}
+      </div>
   );
 };
 

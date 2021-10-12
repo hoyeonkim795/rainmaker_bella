@@ -2,9 +2,7 @@ import React, { useRef, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import Select from "react-select";
 
-const CommandInput = ({ user, scenario, setScenario }) => { // (1)
-
-  console.log(user)
+const CommandInput = ({ scenario, setScenario }) => { // (1)
 
   const [value, setValue] = useState('');
   const [sticker, setSticker] = useState('');
@@ -82,7 +80,6 @@ const CommandInput = ({ user, scenario, setScenario }) => { // (1)
             period,
             count,
             data,
-            deleted: false
           });
           setScenario(nextScenario);
           console.log(nextScenario)  
@@ -97,7 +94,6 @@ const CommandInput = ({ user, scenario, setScenario }) => { // (1)
           value, // (2-2)
           period,
           count,
-          deleted: false
         });
         setScenario(nextScenario);
         console.log(nextScenario)

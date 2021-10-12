@@ -4,9 +4,9 @@ import MakeScenario from "../pages/MakeScenario";
 import { Link, Route, Switch } from 'react-router-dom'
 
 const DefaultSetting = ({ defaultSetting, setDefaultSetting }) => {
-  const [roomId, setRoomId] = useState(0);
-  const [userCount, setUserCount] = useState(1);
-  const [scenarioCount, setScenarioCount] = useState(1);
+  const [roomId, setRoomId] = useState('');
+  const [userCount, setUserCount] = useState('');
+  const [scenarioCount, setScenarioCount] = useState('');
 
   const inputRef = useRef(null);
 

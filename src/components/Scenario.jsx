@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ScenarioItem from './ScenarioItem';
 import update from 'immutability-helper';
 
-const Scenario = ({ title, scenario, setScenario }) => {
+const Scenario = ({ users, setUsers, title, scenario, setScenario }) => {
   const moveCard = useCallback((dragIndex, hoverIndex) => {
     const dragCard =scenario[dragIndex];
     setScenario(update(scenario, {
@@ -21,6 +21,8 @@ const Scenario = ({ title, scenario, setScenario }) => {
         index={index}
         id={scenarioItem.id}
         scenarioItem={scenarioItem}
+        users={users}
+        setUsers={setUsers}
         scenario={scenario}
         setScenario={setScenario}
         moveCard={moveCard}
@@ -30,7 +32,6 @@ const Scenario = ({ title, scenario, setScenario }) => {
 
   return(
     <div className="todoapp__list">
-      {/* props로 부터 title 값을 전달 받음 */}
       <h2 className="todoapp__list-tit">{title}</h2>
       <div className="todoapp__list-thead">
         <span className='todoapp__item-ctx'>EVENT</span>

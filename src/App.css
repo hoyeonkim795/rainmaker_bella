@@ -56,6 +56,13 @@
   font-size: 13px;
 }
 
+.input-appversion-tag {
+  height: 30px;
+  width: 200px;
+  padding: 5px;
+  font-size: 18px;
+}
+
 .todoapp__inputbox-inp:focus {
   outline: none;
 }
