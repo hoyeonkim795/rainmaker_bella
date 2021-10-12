@@ -7,7 +7,7 @@ import queryString from 'query-string';
 import Select from 'react-select';
 import axios from "axios";
 import UserType from "../components/UserType";
-import User from "../components/User";
+import Users from "../components/Users";
 
 const MakeScenario = ({ location }) => {
   const [scenario, setScenario] = useState([]);
@@ -57,7 +57,7 @@ const MakeScenario = ({ location }) => {
   return (
       <div>
         <div className="MakeScenario">
-          <User users={users} user={user} setUser={setUser}/>
+          <Users users={users} setUsers={setUsers} user={user} setUser={setUser}/>
           <div>
             <h1>청취자 환경</h1>
           </div>

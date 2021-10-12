@@ -2,7 +2,7 @@ import React, { useRef, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import Select from "react-select";
 
-const CommandInput = ({ scenario, setScenario }) => { // (1)
+const CommandInput = ({ users, setUsers, scenario, setScenario }) => { // (1)
 
   const [value, setValue] = useState('');
   const [sticker, setSticker] = useState('');

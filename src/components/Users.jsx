@@ -5,7 +5,7 @@ import {DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend";
 import Scenario from "./Scenario";
 
-const User = ({ users, user, setUser }) => {
+const Users = ({ users, user, setUser, setUsers }) => {
 
     const handleChange = useCallback((inputValue) => setUser(inputValue), []);
 
@@ -27,4 +27,4 @@ const User = ({ users, user, setUser }) => {
 // props 값 검증
 
 
-export default User;
+export default Users;

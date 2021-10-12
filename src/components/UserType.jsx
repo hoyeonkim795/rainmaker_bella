@@ -23,15 +23,6 @@ const UserType=({user, users, setUsers}) => {
 
     const handleChange = useCallback((inputValue) => setValue(inputValue), []);
 
-    const handleCreate = useCallback(
-        (inputValue) => {
-            const newValue = { label: inputValue, value: inputValue };
-            setOS([...os, newValue]);
-            setValue(newValue);
-        },
-        [os]
-    );
-
     return (
         <div>
             <Select
