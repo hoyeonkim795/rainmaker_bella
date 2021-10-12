@@ -3,16 +3,15 @@ import CommandInput from '../components/CommandInput';
 import Scenario from "../components/Scenario";
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import queryString from 'query-string';
 import Select from 'react-select';
-import Users from "../components/Users";
 
-const MakeScenario = ({ match }) => {
+const MakeScenario = ({ location }) => {
   const [scenario, setScenario] = useState([]);
 
-  // TODO: query string 사용
-  const { params } = match
-  console.log(params) // {roomId: '1', userCount: '1000', scenarioCount: '3'}
-  const userCount = params.userCount
+  const parsed = queryString.parse(location.search);
+  console.log(parsed.roomId, parsed.userCount, parsed.scenarioCount)
+
 
   const isScenarioEmpty = () => {
     return Array.isArray(scenario) && scenario.length === 0
@@ -24,8 +23,7 @@ const MakeScenario = ({ match }) => {
   };
   return (
     <div className="MakeScenario">
-      {/*<Users users={users} scenario={scenario} setScenario={setScenario} />*/}
-      {/*<Users userCount={userCount} />*/}
+
       <CommandInput scenario={scenario} setScenario={setScenario} />
 
       {/* 할 일 Item 리스트 */}

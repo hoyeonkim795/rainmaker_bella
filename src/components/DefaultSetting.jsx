@@ -93,7 +93,7 @@ const DefaultSetting = ({ defaultSetting, setDefaultSetting }) => {
         </div>
         {/* Todo params change string to Int */}
         <div className="default-setting-btn-box">
-            <Link to={`/scenario/${roomId}/${userCount}/${scenarioCount}`}>
+            <Link to={`/scenario?roomId=${roomId}&userCount=${userCount}&scenarioCount=${scenarioCount}`}>
                 <button
                     type="submit"
                     className="create-default-setting-btn"

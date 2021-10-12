@@ -8,7 +8,8 @@ const App = () => {
   return(
     <Switch>
       <Route exact path="/" component={Home} />
-      <Route exact path="/scenario/:roomId/:userCount/:scenarioCount" component={MakeScenario} />
+        {/*scenario?roomId=0&userCount=1&scenarioCount=1*/}
+      <Route path="/scenario" component={MakeScenario} />
     </Switch>
 
   );
