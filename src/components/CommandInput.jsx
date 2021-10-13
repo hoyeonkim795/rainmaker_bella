@@ -2,7 +2,7 @@ import React, { useRef, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import Select from "react-select";
 
-const CommandInput = ({ users, setUsers, scenario, setScenario }) => { // (1)
+const CommandInput = ({ users, setUsers, appVersion, userAgent, scenario, setScenario }) => { // (1)
 
   const [value, setValue] = useState('');
   const [sticker, setSticker] = useState('');
@@ -63,7 +63,8 @@ const CommandInput = ({ users, setUsers, scenario, setScenario }) => { // (1)
   );
 
   const onClickAddButton = () => {
-    if (value == '') {
+    console.log(appVersion, userAgent)
+    if (appVersion=='' || userAgent=='' || value == '') {
       alert("필수값 입력")
     } else {
       if (value.value == "present") {
@@ -82,7 +83,8 @@ const CommandInput = ({ users, setUsers, scenario, setScenario }) => { // (1)
             data,
           });
           setScenario(nextScenario);
-          console.log(nextScenario)  
+
+          console.log(nextScenario)
         }
         else {
           alert("필수 값 입력")

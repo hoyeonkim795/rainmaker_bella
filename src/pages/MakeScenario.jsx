@@ -29,8 +29,10 @@ const MakeScenario = ({ location }) => {
     }
     }
   }));
-  console.log(users)
-  const [user, setUser] = useState([]);
+
+  const [selectedUser, setSelectedUser] = useState([]);
+  const [appVersion, setAppVersion] = useState('')
+  const [userAgent, setUserAgent] = useState('')
 
 
   const isScenarioEmpty = () => {
@@ -57,17 +59,17 @@ const MakeScenario = ({ location }) => {
   return (
       <div>
         <div className="MakeScenario">
-          <Users users={users} setUsers={setUsers} user={user} setUser={setUser}/>
+          <Users users={users} setUsers={setUsers} selectedUser={selectedUser} setSelectedUser={setSelectedUser}/>
           <div>
             <h1>청취자 환경</h1>
           </div>
-          <UserType user={user} users={users} setUsers={setUsers}/>
+          <UserType users={users} setUsers={setUsers} selectedUser={selectedUser} appVersion={appVersion} setAppVersion={setAppVersion} userAgent={userAgent} setUserAgent={setUserAgent}/>
 
           <div>
             <h1>청취자 이벤트</h1>
           </div>
 
-          <CommandInput user={user} users={users} setUsers={setUsers} scenario={scenario} setScenario={setScenario} />
+          <CommandInput selectedUser={selectedUser} users={users} setUsers={setUsers} appVersion={appVersion} userAgent={userAgent} scenario={scenario} setScenario={setScenario} />
 
           {/* 할 일 Item 리스트 */}
           <DndProvider backend={HTML5Backend}>

@@ -1,42 +1,41 @@
 import React, {useCallback, useRef, useState} from 'react';
 import Select from "react-select";
 
-const UserType=({user, users, setUsers}) => {
-    const [appVersion, setAppversion] = useState('')
-    const [value, setValue] = useState([]);
-    const [os, setOS] = useState([
-            {
-                label: "Android", value: "Android"
-            } ,
-            {
-                label: "Web", value: "Web"
-            },
-            {
-                label : "IOS", value: "iOS"
-            }
-        ]
-    );
-
+const UserType=({users, setUsers, selectedUser, setSelectedUser, appVersion, setAppVersion, userAgent, setUserAgent}) => {
+    const options =
+        [{
+            label: "Android", value: "Android"
+        } ,
+        {
+            label: "Web", value: "Web"
+        },
+        {
+            label : "IOS", value: "iOS"
+        }
+    ]
     const onChangeAppVersionInput = (e) => {
-        setAppversion(e.target.value);
+
+        setAppVersion(e.target.value);
+
     };
 
-    const handleChange = useCallback((inputValue) => setValue(inputValue), []);
+    const handleChange = useCallback((inputValue) => setUserAgent(inputValue)
+        , []);
 
     return (
         <div>
             <Select
                 type="text"
                 name="user"
-                value={value}
+                value={userAgent}
                 placeholder="청취자 OS를 선택하세요"
-                options={os}
+                options={options}
                 onChange={handleChange}
             />
             <br/>
             <input
                 className='input-appversion-tag'
-                type="number"
+                type="text"
                 name="appVersion"
                 value={appVersion}
                 placeholder="앱 버전을 입력하세요"

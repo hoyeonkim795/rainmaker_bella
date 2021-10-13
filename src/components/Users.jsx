@@ -5,9 +5,9 @@ import {DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend";
 import Scenario from "./Scenario";
 
-const Users = ({ users, user, setUser, setUsers }) => {
+const Users = ({ users, selectedUser, setUsers, setSelectedUser }) => {
 
-    const handleChange = useCallback((inputValue) => setUser(inputValue), []);
+    const handleChange = useCallback((inputValue) => setSelectedUser(inputValue), []);
 
 
     return (
