@@ -15,7 +15,6 @@ const MakeScenario = ({ location }) => {
   const parsed = queryString.parse(location.search);
   // query string 넘기기
   // console.log(parsed.roomId, parsed.userCount, parsed.scenarioCount)
-
   const [users, setUsers] = useState(Array.from({length: parsed.scenarioCount}, (v,i)=> i = {
     "label": i,
     "value": {
@@ -23,13 +22,10 @@ const MakeScenario = ({ location }) => {
       "user_agent":"",
       "app_version": "",
       "scenario": {
-        "commands": [
-
-        ]
-    }
+        "commands": []
+      }
     }
   }));
-
   const [selectedUser, setSelectedUser] = useState([]);
   const [appVersion, setAppVersion] = useState('')
   const [userAgent, setUserAgent] = useState('')
@@ -39,10 +35,27 @@ const MakeScenario = ({ location }) => {
     return Array.isArray(scenario) && scenario.length === 0
   }
 
+  const updateScenario = () => {
+    let updateUsers = [];
+    
+    if (users.length > 0) {
+      updateUsers = users.map((data, key) => {
+        if (key === selectedUser?.label) {
+          return { ...data, ...selectedUser };
+        } else {
+          return data;
+        }
+      }) 
+    }
+
+    console.log('updateUsers', updateUsers, 'selectedUser', selectedUser);
+    setUsers(updateUsers);
+  }
+
   const onClickAddButton = () => {
     //삭제한 이벤트
+    console.log('users', users);
 
-    console.log("시나리오 생성 !!!")
     axios.post("url", {
       scenario
     })
@@ -54,8 +67,8 @@ const MakeScenario = ({ location }) => {
       // 항상 실행
       console.log(scenario)
     });
-
   };
+
   return (
       <div>
         <div className="MakeScenario">
@@ -69,7 +82,7 @@ const MakeScenario = ({ location }) => {
             <h1>청취자 이벤트</h1>
           </div>
 
-          <CommandInput selectedUser={selectedUser} users={users} setUsers={setUsers} appVersion={appVersion} userAgent={userAgent} scenario={scenario} setScenario={setScenario} />
+        <CommandInput selectedUser={selectedUser} users={users} setUsers={setUsers} appVersion={appVersion} userAgent={userAgent} scenario={scenario} setScenario={updateScenario} />
 
           {/* 할 일 Item 리스트 */}
           <DndProvider backend={HTML5Backend}>
