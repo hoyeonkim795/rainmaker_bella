@@ -2,17 +2,18 @@ import React, {useCallback, useRef, useState} from 'react';
 import Select from "react-select";
 
 const UserType=({users, setUsers, selectedUser, setSelectedUser, appVersion, setAppVersion, userAgent, setUserAgent}) => {
-    const options =
-        [{
+    const [options] = useState([
+        {
             label: "Android", value: "Android"
-        } ,
+        },
         {
             label: "Web", value: "Web"
         },
         {
             label : "IOS", value: "iOS"
         }
-    ]
+    ]);
+
     const onChangeAppVersionInput = (e) => {
 
         setAppVersion(e.target.value);

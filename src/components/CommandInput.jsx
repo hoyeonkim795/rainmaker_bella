@@ -40,7 +40,14 @@ const CommandInput = ({ users, setUsers, appVersion, userAgent, scenario, setSce
   };
 
 
-  const handleChange = useCallback((inputValue) => setValue(inputValue), []);
+  /* const handleChange = useCallback((inputValue) => {
+    console.log('inputValue', inputValue);
+    setValue(inputValue);
+  }, [setValue]); */
+
+  const handleChange = (abc) => {
+    console.log('abc', abc)
+  }
 
   const handleCreate = useCallback(
     (inputValue) => {
@@ -121,7 +128,6 @@ const CommandInput = ({ users, setUsers, appVersion, userAgent, scenario, setSce
             type="text"
             name="scenarioItem"
             value={value}
-            // ref={inputRef}
             placeholder="청취자 행위를 선택해주세요"
             options={options}
             onChange={handleChange}

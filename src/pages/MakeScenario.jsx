@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import CommandInput from '../components/CommandInput';
 import Scenario from "../components/Scenario";
 import { DndProvider } from 'react-dnd';
@@ -26,7 +26,7 @@ const MakeScenario = ({ location }) => {
       }
     }
   }));
-  const [selectedUser, setSelectedUser] = useState([]);
+  const [selectedUser, setSelectedUser] = useState(null);
   const [appVersion, setAppVersion] = useState('');
   const [userAgent, setUserAgent] = useState('');
 
@@ -70,14 +70,35 @@ const MakeScenario = ({ location }) => {
     });
   };
 
+
+  useEffect(() => {
+    // if (selectedUser) 는 0의 경우, false 
+    if (!isNaN(parseInt(selectedUser, 0))) {
+      console.log('selectedUser', selectedUser);
+    }
+  }, [selectedUser]);
+
+  useEffect(() => {
+    // selectedUser 초기 세팅
+    if (users.length > 0 && users) {
+      console.log('update users', users)
+
+      setSelectedUser(users[0]?.label);
+    }
+  }, [users]);
+
   return (
       <div>
         <div className="MakeScenario">
-          <Users users={users} setUsers={setUsers} selectedUser={selectedUser} setSelectedUser={setSelectedUser}/>
-          <div>
-            <h1>청취자 환경</h1>
+          <div className="user-list-wrap">
+            <label>청취자를 선택 해주세요.</label>
+            <Users users={users} selectedUser={selectedUser} setSelectedUser={setSelectedUser}/>
           </div>
-          <UserType users={users} setUsers={setUsers} selectedUser={selectedUser} appVersion={appVersion} setAppVersion={setAppVersion} userAgent={userAgent} setUserAgent={setUserAgent}/>
+
+          <div className="user-agent-wrap">
+            <h1>청취자 환경</h1>
+            <UserType users={users} setUsers={setUsers} selectedUser={selectedUser} appVersion={appVersion} setAppVersion={setAppVersion} userAgent={userAgent} setUserAgent={setUserAgent}/>
+          </div>
 
           <div>
             <h1>청취자 이벤트</h1>
