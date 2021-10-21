@@ -27,16 +27,15 @@ const MakeScenario = ({ location }) => {
     }
   }));
   const [selectedUser, setSelectedUser] = useState([]);
-  const [appVersion, setAppVersion] = useState('')
-  const [userAgent, setUserAgent] = useState('')
-
+  const [appVersion, setAppVersion] = useState('');
+  const [userAgent, setUserAgent] = useState('');
 
   const isScenarioEmpty = () => {
     return Array.isArray(scenario) && scenario.length === 0
   }
 
   const updateScenario = () => {
-    let updateUsers = [];
+    /* let updateUsers = [];
     
     if (users.length > 0) {
       updateUsers = users.map((data, key) => {
@@ -45,11 +44,13 @@ const MakeScenario = ({ location }) => {
         } else {
           return data;
         }
-      }) 
+      })
     }
 
-    console.log('updateUsers', updateUsers, 'selectedUser', selectedUser);
-    setUsers(updateUsers);
+    console.log('updateUsers', updateUsers, 'selectedUser', selectedUser); */
+    // setUsers();
+
+    console.log('users', users);
   }
 
   const onClickAddButton = () => {
