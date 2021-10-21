@@ -40,14 +40,10 @@ const CommandInput = ({ users, setUsers, appVersion, userAgent, scenario, setSce
   };
 
 
-  /* const handleChange = useCallback((inputValue) => {
+  const handleChange = useCallback((inputValue) => {
     console.log('inputValue', inputValue);
     setValue(inputValue);
-  }, [setValue]); */
-
-  const handleChange = (abc) => {
-    console.log('abc', abc)
-  }
+  }, [setValue]);
 
   const handleCreate = useCallback(
     (inputValue) => {
@@ -70,11 +66,26 @@ const CommandInput = ({ users, setUsers, appVersion, userAgent, scenario, setSce
   );
 
   const onClickAddButton = () => {
-    console.log(appVersion, userAgent)
-    if (appVersion=='' || userAgent=='' || value == '') {
-      alert("필수값 입력")
-    } else {
-      if (value.value == "present") {
+    console.log('value', value)
+    const commandData = value;
+    let updateCommands = null;
+    let data = null;
+    // if (appVersion=='' || userAgent=='' || value == '') {
+    //   alert("필수값 입력")
+    // } else {
+      if (/present/gi.test(commandData?.value)) {
+        console.log('amount ', amount, 'combo ', combo, 'sticker ', sticker);
+        if (!(amount && combo && sticker)) return alert('필수값 입력');
+
+        data = { amount, combo, sticker }
+      }
+
+      updateCommands = { period, count, ...data ? { data } : null, ...value }
+
+      setScenario(updateCommands);
+      // input 값 초기화 및 포커싱
+      setValue('');
+      /* if (value.value == "present") {
         if (amount != '' && combo != '' && sticker != '') {
           const data = {
             "amount":amount,
@@ -106,11 +117,11 @@ const CommandInput = ({ users, setUsers, appVersion, userAgent, scenario, setSce
         });
         setScenario(nextScenario);
         console.log(nextScenario)
-      }
-    }
+      } */
+    // }
 
     // input 값 초기화 및 포커싱
-    setValue('');
+    // setValue('');
     // setCombo('');
     // setPeriod('');
     // setCount('');

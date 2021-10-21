@@ -12,7 +12,7 @@ const Scenario = ({ users, setUsers, title, scenario, setScenario }) => {
         [hoverIndex, 0, dragCard],
       ],
     }));
-  }, [scenario]);
+  }, [scenario, setScenario]);
 
   const renderCard = (scenarioItem, index) => {
     return (

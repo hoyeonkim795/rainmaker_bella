@@ -15,24 +15,44 @@ const UserType=({users, setUsers, selectedUser, setSelectedUser, appVersion, set
     ]);
 
     const onChangeAppVersionInput = (e) => {
-
+        console.log(e.target.value)
         setAppVersion(e.target.value);
-
     };
 
-    const handleChange = useCallback((inputValue) => setUserAgent(inputValue)
-        , []);
+    const handleChange = (e) => {
+        const userAgent = e.target.value;
+
+        setUserAgent(userAgent)
+    }
+
+    /* const handleChange = useCallback((inputValue) => setUserAgent(inputValue)
+        , []); */
 
     return (
         <div>
-            <Select
+            { /* <Select
                 type="text"
                 name="user"
                 value={userAgent}
                 placeholder="청취자 OS를 선택하세요"
                 options={options}
                 onChange={handleChange}
-            />
+            /> */}
+            <select
+                onChange={handleChange}
+                value={userAgent}
+                placeholder="청취자 OS를 선택하세요"
+            >
+                {
+                    options.map((data, key) => {
+                        return (
+                            <option key={key} value={data?.value}>
+                                {data?.label}
+                            </option>
+                        )
+                    })
+                }
+            </select>
             <br/>
             <input
                 className='input-appversion-tag'

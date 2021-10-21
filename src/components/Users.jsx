@@ -5,7 +5,7 @@ import React from 'react';
 // import {HTML5Backend} from "react-dnd-html5-backend";
 // import Scenario from "./Scenario";
 
-const Users = ({ users, selectedUser, setUsers, setSelectedUser }) => {
+const Users = ({ users, selectedUser, setSelectedUser }) => {
     /* const handleChange = useCallback((e) => {
       setSelectedUser(inputValue)
     }); */
@@ -34,8 +34,8 @@ const Users = ({ users, selectedUser, setUsers, setSelectedUser }) => {
           {
             users.map((data, key) => {
               return (
-                <option key={key} label={data?.label}>
-                  {data?.label}
+                <option key={key} label={key}>
+                  {key}
                 </option>
               )
             })

@@ -15,14 +15,21 @@ const MakeScenario = ({ location }) => {
   const parsed = queryString.parse(location.search);
   // query string 넘기기
   // console.log(parsed.roomId, parsed.userCount, parsed.scenarioCount)
-  const [users, setUsers] = useState(Array.from({length: parsed.scenarioCount}, (v,i)=> i = {
-    "label": i,
+  const [users, setUsers] = useState(Array.from({length: parsed.scenarioCount}, (v,i)=> {
+    /* "label": i,
     "value": {
       "access_control": true,
       "user_agent":"",
       "app_version": "",
       "scenario": {
         "commands": []
+      }
+    } */
+    return { 
+      user_agent: '',
+      app_version: '',
+      scenario: {
+        commands: []
       }
     }
   }));
@@ -31,45 +38,44 @@ const MakeScenario = ({ location }) => {
   const [userAgent, setUserAgent] = useState('');
 
   const isScenarioEmpty = () => {
-    return Array.isArray(scenario) && scenario.length === 0
-  }
-
-  const updateScenario = () => {
-    /* let updateUsers = [];
+    const key = parseInt(selectedUser, 10);
     
-    if (users.length > 0) {
-      updateUsers = users.map((data, key) => {
-        if (key === selectedUser?.label) {
-          return { ...data, ...selectedUser };
-        } else {
-          return data;
-        }
-      })
-    }
+    console.log('commands length', users[key]?.scenario?.commands?.length);
 
-    console.log('updateUsers', updateUsers, 'selectedUser', selectedUser); */
-    // setUsers();
-
-    console.log('users', users);
+    return users[key]?.scenario?.commands?.length === 0;
   }
 
-  const onClickAddButton = () => {
-    //삭제한 이벤트
-    console.log('users', users);
+  const updateScenario = (updateCommands) => {
+    console.log('update commands', updateCommands, 'selectedUser ', selectedUser);
 
-    axios.post("url", {
-      scenario
-    })
-        .then(function (response) {
-          // response
-        }).catch(function (error) {
-      // 오류발생시 실행
-    }).then(function() {
-      // 항상 실행
-      console.log(scenario)
+    const updateUsers = users.map((data, key) => {
+      if (parseInt(selectedUser, 10) !== key) return data;
+
+      const prevCommands = data?.scenario?.commands;
+      const updateScenario = { 
+        commands: prevCommands.concat(updateCommands)
+      }
+
+      return { ...data, ...{ scenario: updateScenario } }
     });
-  };
 
+    console.log('updateUsers', updateUsers);
+    setUsers(updateUsers);
+  }
+
+  const onClickSubmit = () => {    
+    axios.post("url", {scenario})
+      .then(function (response) {
+        // response
+      }).catch(function (error) {
+      // 오류발생시 실행
+    });
+    // 체이닝이 많으면, 가독성이 떨어짐. 이런 경우 asyn, await 권장
+    // .then(function() {
+    // 항상 실행
+    // console.log(scenario)
+    // });
+  };
 
   useEffect(() => {
     // if (selectedUser) 는 0의 경우, false 
@@ -83,15 +89,23 @@ const MakeScenario = ({ location }) => {
     if (users.length > 0 && users) {
       console.log('update users', users)
 
-      setSelectedUser(users[0]?.label);
+      // 인덱스 0번재
+      setSelectedUser(0);
     }
-  }, [users]);
+  }, [users, userAgent]);
+
+  useEffect(() => {
+    if (userAgent || appVersion) {
+      // 데이터 변경 보기 위해 설정
+      console.log('update userAgent', userAgent, 'appVersion ',appVersion);
+    }
+  }, [userAgent, appVersion]);
 
   return (
       <div>
         <div className="MakeScenario">
           <div className="user-list-wrap">
-            <label>청취자를 선택 해주세요.</label>
+            <h1>청취자 선택</h1>
             <Users users={users} selectedUser={selectedUser} setSelectedUser={setSelectedUser}/>
           </div>
 
@@ -100,13 +114,13 @@ const MakeScenario = ({ location }) => {
             <UserType users={users} setUsers={setUsers} selectedUser={selectedUser} appVersion={appVersion} setAppVersion={setAppVersion} userAgent={userAgent} setUserAgent={setUserAgent}/>
           </div>
 
-          <div>
+          <div className="user-event-wrap">
             <h1>청취자 이벤트</h1>
+            <CommandInput setScenario={updateScenario}/>
           </div>
 
-        <CommandInput selectedUser={selectedUser} users={users} setUsers={setUsers} appVersion={appVersion} userAgent={userAgent} scenario={scenario} setScenario={updateScenario} />
-
-          {/* 할 일 Item 리스트 */}
+        { /* <CommandInput selectedUser={selectedUser} users={users} setUsers={setUsers} appVersion={appVersion} userAgent={userAgent} scenario={scenario} setScenario={updateScenario} /> */}        
+        
           <DndProvider backend={HTML5Backend}>
             <Scenario    // (1)
                 title={'시나리오'}
@@ -116,19 +130,19 @@ const MakeScenario = ({ location }) => {
                 setScenario={setScenario}
             />
           </DndProvider>
-        </div>
-        {!isScenarioEmpty() && (
-            <div className='scenario-btn-box'>
-              <button
-                  type="submit"
-                  onClick={onClickAddButton}
-                  className="create-scenario-btn"
-              >
-                시나리오 생성하기
-              </button>
-            </div>
-        )}
+
+        {!isScenarioEmpty() &&
+          <div className='scenario-btn-box'>
+            <button
+              type="submit"
+              onClick={onClickSubmit}
+              className="create-scenario-btn"
+            >
+              시나리오 생성하기
+            </button>
+          </div>}
       </div>
+    </div>
   );
 };
 
