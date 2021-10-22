@@ -177,7 +177,7 @@ const CommandInput = ({ users, setUsers, appVersion, userAgent, scenario, setSce
           />
         </div>
       </div>
-      {value.value=="present" && (
+      {/present/gi.test(value.value) && (
         <div className="input_default_setting_box">
           <div>
             <div className="input_name">

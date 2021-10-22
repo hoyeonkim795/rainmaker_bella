@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ScenarioItem from './ScenarioItem';
 import update from 'immutability-helper';
 
-const Scenario = ({ users, setUsers, title, scenario, setScenario }) => {
+const Scenario = ({ users, setUsers, title, scenario, setScenario, deleteScenario }) => {
   const moveCard = useCallback((dragIndex, hoverIndex) => {
     const dragCard =scenario[dragIndex];
     setScenario(update(scenario, {
@@ -14,20 +14,21 @@ const Scenario = ({ users, setUsers, title, scenario, setScenario }) => {
     }));
   }, [scenario, setScenario]);
 
-  const renderCard = (scenarioItem, index) => {
-    console.log('scenarioItem', scenarioItem);
+  const renderCard = (scenarioItem, index, deleteScenario) => {
+    console.log('scenarioItem', scenarioItem, 'index', index, 'deleteScenario', deleteScenario);
 
     return (
       <ScenarioItem
-        key={scenarioItem.id}
+        key={index}
         index={index}
-        id={scenarioItem.id}
+        id={index}
         scenarioItem={scenarioItem}
         users={users}
         setUsers={setUsers}
         scenario={scenario}
         setScenario={setScenario}
         moveCard={moveCard}
+        deleteScenario={deleteScenario}
       />
     );
   }
@@ -42,9 +43,10 @@ const Scenario = ({ users, setUsers, title, scenario, setScenario }) => {
         <span className='todoapp__item-ctx'>DATA</span>
       </div>
       <ul className="todoapp__list-ul">
-        {scenario && scenario.map((scenarioItem, i) => {
+        {scenario?.length > 0 && scenario.map((scenarioItem, i) => {
+          console.log('scenarioitem', scenarioItem);
           return(
-            renderCard(scenarioItem, i)
+            renderCard(scenarioItem, i, deleteScenario)
           );
         })}
       </ul>

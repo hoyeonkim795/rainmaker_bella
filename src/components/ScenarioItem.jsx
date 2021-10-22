@@ -11,8 +11,9 @@ const style = {
   cursor: 'move',
 };
 
-const ScenarioItem = ({ index, id, moveCard, scenarioItem, scenario, /* setScenario */ }) => {
+const ScenarioItem = ({ index, id, moveCard, scenarioItem, scenario, deleteScenario }) => {
   const ref = useRef(null);
+  
   const [{ handlerId }, drop] = useDrop({
     accept: ItemTypes.ScenarioItem,
     collect(monitor) {
@@ -70,26 +71,27 @@ const ScenarioItem = ({ index, id, moveCard, scenarioItem, scenario, /* setScena
   const opacity = isDragging ? 0 : 1;
   drag(drop(ref));
 
+  const handleClick = (index) => {
+    deleteScenario(index);
+  }
   // 삭제 기능
 
-  const onClickDeleteButton = () =>
-  { if (window.confirm('삭제하시겠습니까?')) {
+  // const onSubmitDeleteButton = (selectedKey) => {
+  //  if (window.confirm('삭제하시겠습니까?')) {
     // const nextScenario = scenario.map((item, key) => ({
     //   ...item,
     //   deleted: item.id === scenarioItem.id ? true : item.deleted,
     // }));
-
-    const nextScenario = scenario.filter((item)=> item.id != scenarioItem.id)
-    const finalScenario = nextScenario.map((item) => ({
-      ...item,
-      id: item.id >= scenarioItem.id ? item.id-1 : item.id,
-    }));
-
+    // const nextScenario = scenario.filter((item)=> item.id != scenarioItem.id)
+    // const finalScenario = nextScenario.map((item) => ({
+    //   ...item,
+    //   id: item.id >= scenarioItem.id ? item.id-1 : item.id,
+    // }));
     // setScenario(finalScenario);
-    console.log("삭제!!")
-
-  } };
-
+  //  console.log("삭제!!")
+    
+  //  onClickDeleteButton(selectedKey);
+  // }};
 
   return(
     <li ref={ref} style={{ ...style, opacity }} data-handler-id={handlerId} className="todoapp__item">
@@ -109,7 +111,7 @@ const ScenarioItem = ({ index, id, moveCard, scenarioItem, scenario, /* setScena
 
       <div>
         {/* 삭제 버튼 */}
-        <button type="button" className="todoapp__item-delete-btn" onClick={onClickDeleteButton}>
+        <button type="button" className="todoapp__item-delete-btn" onClick={() => handleClick(index)}>
           🗑
         </button>
       </div>
@@ -117,18 +119,18 @@ const ScenarioItem = ({ index, id, moveCard, scenarioItem, scenario, /* setScena
   );
 }
 
-ScenarioItem.propTypes = {
-  scenarioItem: PropTypes.shape({
-    id: PropTypes.number,
-    value: PropTypes.object.isRequired,
-  }),
-  scenario: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      value: PropTypes.object.isRequired,
-    })
-  ),
-  // setScenario: PropTypes.func.isRequired,
-};
+// ScenarioItem.propTypes = {
+//   scenarioItem: PropTypes.shape({
+//     id: PropTypes.number,
+//     value: PropTypes.object.isRequired,
+//   }),
+//   scenario: PropTypes.arrayOf(
+//     PropTypes.shape({
+//       id: PropTypes.number.isRequired,
+//       value: PropTypes.object.isRequired,
+//     })
+//   ),
+//   // setScenario: PropTypes.func.isRequired,
+// };
 
 export default ScenarioItem;

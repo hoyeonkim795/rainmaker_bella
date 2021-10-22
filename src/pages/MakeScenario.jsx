@@ -33,6 +33,7 @@ const MakeScenario = ({ location }) => {
   const [appVersion, setAppVersion] = useState('');
   const [userAgent, setUserAgent] = useState('');
   const [scenario, setScenario] = useState([]);
+
   const updateUserAgent = useCallback((userAgent) => {
     const updateUsers = users.map((data, key) => {
       if (parseInt(selectedUser, 10) !== key) return data;
@@ -40,20 +41,28 @@ const MakeScenario = ({ location }) => {
       return { ...data, ...{user_agent: userAgent}}
     });
 
-    console.log('update users', updateUsers);
+    console.log('update users with user agent', updateUsers);
     setUserAgent(userAgent);
     setUsers(updateUsers);
   }, [setUserAgent, users, setUsers, selectedUser]);
   
+  const updateAppVersion = useCallback(() => {
+    const updateUsers = users.map((data, key) => {
+      if (parseInt(selectedUser, 10) !== key) return data;
+
+      return {...data, ...{app_version: appVersion}}
+    });
+
+    console.log('update users with app version', updateUsers);
+    setUsers(updateUsers);
+  }, [appVersion, users, setUsers, selectedUser]);
   // onEnter, submit btn
-  //const updateAppVersion = useCallback(() => {
+  // const updateAppVersion = useCallback(() => {
   // }, [setAppVersion, users, ]);
 
 
   const isScenarioEmpty = () => {
     const key = parseInt(selectedUser, 10);
-    
-    console.log('commands length', users[key]?.scenario?.length);
 
     return users[key]?.scenario?.length === 0;
   }
@@ -75,8 +84,23 @@ const MakeScenario = ({ location }) => {
     setUsers(updateUsers);
   }
 
+  const deleteScenario = (deletedKey) => {
+    console.log('deletecommands', deletedKey);
+
+    const updatedUsers = users.map((data, key) => {
+      if (parseInt(selectedUser, 10) !== key) return data;
+
+      const updateScenario = data?.scenario.filter((data, key) => deletedKey !== key);
+      return Object.assign({}, data, {scenario: updateScenario});
+    })
+
+    setUsers(updatedUsers);
+  }
+
   const onClickSubmit = () => {
-    // TODO: users 를 params 으로 보내기    
+    // TODO: users(listener) 를 params 으로 보내기
+    console.log('listeners', users);
+
     axios.post("url", {scenario})
       .then(function (response) {
         // response
@@ -96,7 +120,6 @@ const MakeScenario = ({ location }) => {
       const userAgent = users[selectedUser]?.user_agent ?? '';
       const appVersion = users[selectedUser]?.app_version ?? '';
       const scenario = users[selectedUser]?.scenario;
-      console.log('selectedUser', selectedUser);
       
       setUserAgent(userAgent);
       setAppVersion(appVersion);
@@ -115,7 +138,7 @@ const MakeScenario = ({ location }) => {
           <div className="user-agent-wrap">
             <h1>청취자 환경</h1>
             { /* <UserType users={users} setUsers={setUsers} selectedUser={selectedUser} appVersion={appVersion} setAppVersion={setAppVersion} userAgent={userAgent} setUserAgent={setUserAgent}/> */}
-            <UserType userAgent={userAgent} appVersion={appVersion} setAppVersion={setAppVersion} setUserAgent={updateUserAgent} />
+            <UserType userAgent={userAgent} appVersion={appVersion} setAppVersion={setAppVersion} setUserAgent={updateUserAgent} updateAppVersion={updateAppVersion}/>
           </div>
 
           <div className="user-event-wrap">
@@ -132,6 +155,7 @@ const MakeScenario = ({ location }) => {
               setUsers={setUsers}
               scenario={scenario}
               setScenario={setScenario}
+              deleteScenario={deleteScenario}
             />
           </DndProvider>
 

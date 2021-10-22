@@ -1,7 +1,7 @@
 import React, {useCallback, useRef, useState} from 'react';
 import Select from "react-select";
 
-const UserType=({users, setUsers, selectedUser, setSelectedUser, appVersion, setAppVersion, userAgent, setUserAgent}) => {
+const UserType=({updateAppVersion, appVersion, setAppVersion, userAgent, setUserAgent}) => {
     const [options] = useState([
         {
             label: "Android", value: "Android"
@@ -15,7 +15,6 @@ const UserType=({users, setUsers, selectedUser, setSelectedUser, appVersion, set
     ]);
 
     const onChangeAppVersionInput = (e) => {
-        console.log(e.target.value)
         setAppVersion(e.target.value);
     };
 
@@ -23,6 +22,12 @@ const UserType=({users, setUsers, selectedUser, setSelectedUser, appVersion, set
         const userAgent = e.target.value;
 
         setUserAgent(userAgent)
+    }
+
+    const onSubmitAppVersionInput = () => {
+        console.log('userAgent', appVersion);
+
+        updateAppVersion();    
     }
 
     /* const handleChange = useCallback((inputValue) => setUserAgent(inputValue)
@@ -61,10 +66,10 @@ const UserType=({users, setUsers, selectedUser, setSelectedUser, appVersion, set
                     name="appVersion"
                     value={appVersion}
                     placeholder="앱 버전을 입력하세요"
-                    // onChange={onChangeAppVersionInput}
-                    onKeyDown={onChangeAppVersionInput}
+                    onChange={onChangeAppVersionInput}
+                    // onKeyDown={onSubmitAppVersionInput}
                 />
-                <button onClick={onChangeAppVersionInput}>저장</button>
+                <button onClick={onSubmitAppVersionInput}>저장</button>
             </div>
         </div>
     );
