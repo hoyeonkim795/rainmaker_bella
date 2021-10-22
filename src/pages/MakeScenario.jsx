@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import CommandInput from '../components/CommandInput';
 import Scenario from "../components/Scenario";
 import { DndProvider } from 'react-dnd';
@@ -10,39 +10,51 @@ import UserType from "../components/UserType";
 import Users from "../components/Users";
 
 const MakeScenario = ({ location }) => {
-  const [scenario, setScenario] = useState([]);
-
   const parsed = queryString.parse(location.search);
   // query string 넘기기
   // console.log(parsed.roomId, parsed.userCount, parsed.scenarioCount)
   const [users, setUsers] = useState(Array.from({length: parsed.scenarioCount}, (v,i)=> {
-    /* "label": i,
-    "value": {
-      "access_control": true,
-      "user_agent":"",
-      "app_version": "",
-      "scenario": {
-        "commands": []
-      }
-    } */
+    // "label": i,
+    // "value": {
+    //   "access_control": true,
+    //   "user_agent":"",
+    //   "app_version": "",
+    //   "scenario": {
+    //     "commands": []
+    //   }
+    // }
     return { 
       user_agent: '',
       app_version: '',
-      scenario: {
-        commands: []
-      }
+      scenario: []
     }
   }));
-  const [selectedUser, setSelectedUser] = useState(null);
+  const [selectedUser, setSelectedUser] = useState(0);
   const [appVersion, setAppVersion] = useState('');
   const [userAgent, setUserAgent] = useState('');
+  const [scenario, setScenario] = useState([]);
+  const updateUserAgent = useCallback((userAgent) => {
+    const updateUsers = users.map((data, key) => {
+      if (parseInt(selectedUser, 10) !== key) return data;
+
+      return { ...data, ...{user_agent: userAgent}}
+    });
+
+    console.log('update users', updateUsers);
+    setUserAgent(userAgent);
+    setUsers(updateUsers);
+  }, [setUserAgent, users, setUsers, selectedUser]);
+  // onEnter, submit btn
+  //const updateAppVersion = useCallback(() => {
+  // }, [setAppVersion, users, ]);
+
 
   const isScenarioEmpty = () => {
     const key = parseInt(selectedUser, 10);
     
-    console.log('commands length', users[key]?.scenario?.commands?.length);
+    console.log('commands length', users[key]?.scenario?.length);
 
-    return users[key]?.scenario?.commands?.length === 0;
+    return users[key]?.scenario?.length === 0;
   }
 
   const updateScenario = (updateCommands) => {
@@ -51,11 +63,10 @@ const MakeScenario = ({ location }) => {
     const updateUsers = users.map((data, key) => {
       if (parseInt(selectedUser, 10) !== key) return data;
 
-      const prevCommands = data?.scenario?.commands;
-      const updateScenario = { 
-        commands: prevCommands.concat(updateCommands)
-      }
+      const prevScenario = data?.scenario;
+      const updateScenario = prevScenario.concat(updateCommands);
 
+      setScenario(updateScenario);
       return { ...data, ...{ scenario: updateScenario } }
     });
 
@@ -63,7 +74,8 @@ const MakeScenario = ({ location }) => {
     setUsers(updateUsers);
   }
 
-  const onClickSubmit = () => {    
+  const onClickSubmit = () => {
+    // TODO: users 를 params 으로 보내기    
     axios.post("url", {scenario})
       .then(function (response) {
         // response
@@ -80,26 +92,16 @@ const MakeScenario = ({ location }) => {
   useEffect(() => {
     // if (selectedUser) 는 0의 경우, false 
     if (!isNaN(parseInt(selectedUser, 0))) {
+      const userAgent = users[selectedUser]?.user_agent ?? '';
+      const appVersion = users[selectedUser]?.app_version ?? '';
+      const scenario = users[selectedUser]?.scenario;
       console.log('selectedUser', selectedUser);
+      
+      setUserAgent(userAgent);
+      setAppVersion(appVersion);
+      setScenario(scenario);
     }
-  }, [selectedUser]);
-
-  useEffect(() => {
-    // selectedUser 초기 세팅
-    if (users.length > 0 && users) {
-      console.log('update users', users)
-
-      // 인덱스 0번재
-      setSelectedUser(0);
-    }
-  }, [users, userAgent]);
-
-  useEffect(() => {
-    if (userAgent || appVersion) {
-      // 데이터 변경 보기 위해 설정
-      console.log('update userAgent', userAgent, 'appVersion ',appVersion);
-    }
-  }, [userAgent, appVersion]);
+  }, [selectedUser, setAppVersion, setUserAgent, setScenario, users]);
 
   return (
       <div>
@@ -111,7 +113,8 @@ const MakeScenario = ({ location }) => {
 
           <div className="user-agent-wrap">
             <h1>청취자 환경</h1>
-            <UserType users={users} setUsers={setUsers} selectedUser={selectedUser} appVersion={appVersion} setAppVersion={setAppVersion} userAgent={userAgent} setUserAgent={setUserAgent}/>
+            { /* <UserType users={users} setUsers={setUsers} selectedUser={selectedUser} appVersion={appVersion} setAppVersion={setAppVersion} userAgent={userAgent} setUserAgent={setUserAgent}/> */}
+            <UserType userAgent={userAgent} appVersion={appVersion} setAppVersion={setAppVersion} setUserAgent={updateUserAgent} />
           </div>
 
           <div className="user-event-wrap">
@@ -123,11 +126,11 @@ const MakeScenario = ({ location }) => {
         
           <DndProvider backend={HTML5Backend}>
             <Scenario    // (1)
-                title={'시나리오'}
-                users={users}
-                setUsers={setUsers}
-                scenario={scenario}
-                setScenario={setScenario}
+              title={'시나리오'}
+              users={users}
+              setUsers={setUsers}
+              scenario={scenario}
+              setScenario={setScenario}
             />
           </DndProvider>
 

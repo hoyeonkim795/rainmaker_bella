@@ -15,6 +15,8 @@ const Scenario = ({ users, setUsers, title, scenario, setScenario }) => {
   }, [scenario, setScenario]);
 
   const renderCard = (scenarioItem, index) => {
+    console.log('scenarioItem', scenarioItem);
+
     return (
       <ScenarioItem
         key={scenarioItem.id}
