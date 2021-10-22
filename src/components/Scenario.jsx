@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ScenarioItem from './ScenarioItem';
 import update from 'immutability-helper';
 
-const Scenario = ({ users, setUsers, title, scenario, setScenario, deleteScenario }) => {
+const Scenario = ({ users, setUsers, title, scenario, setScenario, deleteScenario, reorderScenario }) => {
   const moveCard = useCallback((dragIndex, hoverIndex) => {
     const dragCard =scenario[dragIndex];
     setScenario(update(scenario, {
@@ -14,7 +14,7 @@ const Scenario = ({ users, setUsers, title, scenario, setScenario, deleteScenari
     }));
   }, [scenario, setScenario]);
 
-  const renderCard = (scenarioItem, index, deleteScenario) => {
+  const renderCard = (scenarioItem, index, deleteScenario, reorderScenario) => {
     console.log('scenarioItem', scenarioItem, 'index', index, 'deleteScenario', deleteScenario);
 
     return (
@@ -29,6 +29,7 @@ const Scenario = ({ users, setUsers, title, scenario, setScenario, deleteScenari
         setScenario={setScenario}
         moveCard={moveCard}
         deleteScenario={deleteScenario}
+        // reorderScenario={reorderScenario}
       />
     );
   }

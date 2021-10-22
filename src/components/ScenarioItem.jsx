@@ -11,7 +11,7 @@ const style = {
   cursor: 'move',
 };
 
-const ScenarioItem = ({ index, id, moveCard, scenarioItem, scenario, deleteScenario }) => {
+const ScenarioItem = ({ index, id, moveCard, scenarioItem, scenario, deleteScenario, reorderScenario }) => {
   const ref = useRef(null);
   
   const [{ handlerId }, drop] = useDrop({
@@ -74,6 +74,11 @@ const ScenarioItem = ({ index, id, moveCard, scenarioItem, scenario, deleteScena
   const handleClick = (index) => {
     deleteScenario(index);
   }
+
+  const handleReorderTest = () => {
+    // reorderScenario();
+  }  
+
   // 삭제 기능
 
   // const onSubmitDeleteButton = (selectedKey) => {

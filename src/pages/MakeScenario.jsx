@@ -97,6 +97,10 @@ const MakeScenario = ({ location }) => {
     setUsers(updatedUsers);
   }
 
+  const reorderScenario = () => {
+
+  }
+
   const onClickSubmit = () => {
     // TODO: users(listener) 를 params 으로 보내기
     console.log('listeners', users);
@@ -156,6 +160,7 @@ const MakeScenario = ({ location }) => {
               scenario={scenario}
               setScenario={setScenario}
               deleteScenario={deleteScenario}
+              reorderScenario={reorderScenario}
             />
           </DndProvider>
 
