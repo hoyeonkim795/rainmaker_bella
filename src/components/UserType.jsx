@@ -54,16 +54,18 @@ const UserType=({users, setUsers, selectedUser, setSelectedUser, appVersion, set
                 }
             </select>
             <br/>
-            <input
-                className='input-appversion-tag'
-                type="text"
-                name="appVersion"
-                value={appVersion}
-                placeholder="앱 버전을 입력하세요"
-                onChange={onChangeAppVersionInput}
-            />
-            <br/>
-
+            <div className='wrap-appversion'>
+                <input
+                    className='input-appversion-tag'
+                    type="text"
+                    name="appVersion"
+                    value={appVersion}
+                    placeholder="앱 버전을 입력하세요"
+                    // onChange={onChangeAppVersionInput}
+                    onKeyDown={onChangeAppVersionInput}
+                />
+                <button onClick={onChangeAppVersionInput}>저장</button>
+            </div>
         </div>
     );
 };
