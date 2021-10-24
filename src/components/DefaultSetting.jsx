@@ -96,15 +96,24 @@ const DefaultSetting = ({ defaultSetting, setDefaultSetting }) => {
         </div>
         {/* Todo params change string to Int */}
         <div className="default-setting-btn-box">
-            <Link to={ fileName!=''&& userCount!='' && scenarioCount!='' `/scenario?fileName=${fileName}&userCount=${userCount}&scenarioCount=${scenarioCount}`}>
-                <button
-                    type="submit"
-                    className="create-default-setting-btn"
-                    onClick={onClickAddButton}
-                >
-                    입력 완료
-                </button>
-            </Link>
+            {
+                fileName!==''&& userCount!=='' && scenarioCount!=='' ? <Link to={ `/scenario?fileName=${fileName}&userCount=${userCount}&scenarioCount=${scenarioCount}`}>
+                        <button
+                            type="submit"
+                            className="create-default-setting-btn"
+                            onClick={onClickAddButton}
+                        >
+                            입력 완료
+                        </button>
+                    </Link> :
+                    <button
+                        type="submit"
+                        className="create-default-setting-btn"
+                        onClick={onClickAddButton}
+                    >
+                        입력 완료
+                    </button>
+            }
         </div>
     </div>
   );
