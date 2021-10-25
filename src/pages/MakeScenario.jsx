@@ -8,6 +8,7 @@ import Select from 'react-select';
 import axios from "axios";
 import UserType from "../components/UserType";
 import Users from "../components/Users";
+import {postScenarioCreate} from "../lib/Api";
 
 const MakeScenario = ({ location }) => {
   const [scenario, setScenario] = useState([]);
@@ -43,16 +44,19 @@ const MakeScenario = ({ location }) => {
     //삭제한 이벤트
 
     console.log("시나리오 생성 !!!")
-    axios.post("url", {
-      scenario
-    })
-        .then(function (response) {
-          // response
-        }).catch(function (error) {
-      // 오류발생시 실행
-    }).then(function() {
-      // 항상 실행
-      console.log(scenario)
+    postScenarioCreate({ "file_name": "lalala", "listener_count": 3, "pre_delay": 3, "listeners" :
+          [{
+            "user_agent" : "Web", "app_version":"2.0.2", "commands": [{
+              "command": "join", "count":1, "period":3, "data": null
+            },{
+              "command": "chat", "count":1, "period":3, "data": null
+            },
+              {
+                "command": "leave", "count":1, "period":3, "data": null
+              }
+
+            ]
+          }]
     });
 
   };
