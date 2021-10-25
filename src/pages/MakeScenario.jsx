@@ -31,8 +31,9 @@ const MakeScenario = ({ location }) => {
   }));
   const [selectedUser, setSelectedUser] = useState(0);
   const [appVersion, setAppVersion] = useState('');
-  const [userAgent, setUserAgent] = useState('');
+  const [userAgent, setUserAgent] = useState('Android');
   const [scenario, setScenario] = useState([]);
+  const [isInit, setIsInit] = useState(true);
 
   const updateUserAgent = useCallback((userAgent) => {
     const updateUsers = users.map((data, key) => {
@@ -130,6 +131,19 @@ const MakeScenario = ({ location }) => {
       setScenario(scenario);
     }
   }, [selectedUser, setAppVersion, setUserAgent, setScenario, users]);
+
+  useEffect(() => {
+    if (isInit) {
+      const initUsers = users.map((data, key) => {
+        if (selectedUser !== key) return data;
+
+        return Object.assign({}, data, {user_agent: userAgent});
+      });
+
+      setUsers(initUsers);
+      setIsInit(false);
+    }
+  }, [isInit, setUsers, users, selectedUser, userAgent]);
 
   return (
       <div>
