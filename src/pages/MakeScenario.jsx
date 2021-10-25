@@ -103,28 +103,7 @@ const MakeScenario = ({ location }) => {
   }
 
   const onClickSubmit = () => {
-    console.log(parsed.fileName)
-    console.log(users)
-
-    postScenarioCreate({ "file_name": parsed.fileName, "listener_count": parsed.userCount, "listeners" :
-          [{
-            "user_agent" : "Web", "app_version":"2.0.2", "commands": [{
-              "command": "join", "count":1, "period":3, "data": null
-            },{
-              "command": "chat", "count":1, "period":3, "data": null
-            },
-              {
-                "command": "leave", "count":1, "period":3, "data": null
-              }
-
-            ]
-          }]
-    });
-    // 체이닝이 많으면, 가독성이 떨어짐. 이런 경우 asyn, await 권장
-    // .then(function() {
-    // 항상 실행
-    // console.log(scenario)
-    // });
+    postScenarioCreate({ "file_name": parsed.fileName, "listener_count": parsed.userCount, "listeners" : users});
   };
 
   useEffect(() => {
