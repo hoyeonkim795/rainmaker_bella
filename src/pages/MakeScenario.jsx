@@ -100,10 +100,15 @@ const MakeScenario = ({ location }) => {
   }
 
   const reorderScenario = () => {
+    const updatedUsers = users.map((data, key) => {
+      return Object.assign({}, data, {commands: scenario});
+    })
 
+    setUsers(updatedUsers);
   }
 
   const onClickSubmit = () => {
+    console.log("users !!!!!!!!!", users)
     postScenarioCreate({ "file_name": parsed.fileName, "listener_count": parsed.userCount, "listeners" : users});
   };
 
@@ -165,18 +170,27 @@ const MakeScenario = ({ location }) => {
               reorderScenario={reorderScenario}
             />
           </DndProvider>
-
-        {!isScenarioEmpty() &&
           <div className='scenario-btn-box'>
             <button
               type="submit"
-              onClick={onClickSubmit}
+              onClick={reorderScenario}
               className="create-scenario-btn"
             >
-              시나리오 생성하기
+              시나리오 완성
             </button>
-          </div>}
+
+          </div>
       </div>
+        {!isScenarioEmpty() &&
+        <div className='scenario-btn-box'>
+          <button
+              type="submit"
+              onClick={onClickSubmit}
+              className="create-scenario-btn"
+          >
+            시나리오 생성하기
+          </button>
+        </div>}
     </div>
   );
 };

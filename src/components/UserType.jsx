@@ -50,6 +50,7 @@ const UserType=({updateAppVersion, appVersion, setAppVersion, userAgent, setUser
                 onChange={handleChange}
             /> */}
             <select
+                className="select_os_box"
                 onChange={handleChange}
                 value={userAgent}
                 placeholder="청취자 OS를 선택하세요"
@@ -65,7 +66,8 @@ const UserType=({updateAppVersion, appVersion, setAppVersion, userAgent, setUser
                 }
             </select>
             <br/>
-            <div className='wrap-appversion'>
+            <br/>
+            <div>
                 <input
                     className='input-appversion-tag'
                     type="text"
@@ -75,7 +77,8 @@ const UserType=({updateAppVersion, appVersion, setAppVersion, userAgent, setUser
                     onChange={onChangeAppVersionInput}
                     onKeyDown={onKeyDownAppVersionInput}
                 />
-                <button onClick={onSubmitAppVersionInput}>저장</button>
+
+                <button className="save_usertype" onClick={onSubmitAppVersionInput}>저장</button>
             </div>
         </div>
     );

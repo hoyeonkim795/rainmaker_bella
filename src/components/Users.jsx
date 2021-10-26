@@ -27,6 +27,7 @@ const Users = ({ users, selectedUser, setSelectedUser }) => {
           onChange={handleChange}
         /> */}
         <select
+          className="user_number"
           onChange={handleChange}
           value={selectedUser}
           placeholder={'청취자 번호를 선택하세요.'}

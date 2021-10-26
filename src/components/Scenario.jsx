@@ -4,6 +4,7 @@ import ScenarioItem from './ScenarioItem';
 import update from 'immutability-helper';
 
 const Scenario = ({ users, setUsers, title, scenario, setScenario, deleteScenario, reorderScenario }) => {
+  console.log(scenario)
   const moveCard = useCallback((dragIndex, hoverIndex) => {
     const dragCard =scenario[dragIndex];
     setScenario(update(scenario, {
