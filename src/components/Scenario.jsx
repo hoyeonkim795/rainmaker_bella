@@ -55,15 +55,4 @@ const Scenario = ({ users, setUsers, title, scenario, setScenario, deleteScenari
   );
 }
 
-Scenario.propTypes = {
-  title: PropTypes.string.isRequired,
-  scenario: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      value: PropTypes.object.isRequired,
-    })
-  ),
-  setScenario: PropTypes.func.isRequired,
-};
-
 export default Scenario;
