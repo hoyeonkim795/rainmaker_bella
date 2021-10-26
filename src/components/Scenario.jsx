@@ -3,19 +3,22 @@ import PropTypes from 'prop-types';
 import ScenarioItem from './ScenarioItem';
 import update from 'immutability-helper';
 
-const Scenario = ({ users, setUsers, title, scenario, setScenario, deleteScenario, reorderScenario }) => {
+const Scenario = ({ users, setUsers, title, scenario, setScenario, deleteScenario, reorderScenario, setIsDraged }) => {
   const moveCard = useCallback((dragIndex, hoverIndex) => {
-    const dragCard =scenario[dragIndex];
+    const dragCard = scenario[dragIndex];
+
     setScenario(update(scenario, {
       $splice: [
         [dragIndex, 1],
         [hoverIndex, 0, dragCard],
       ],
     }));
-  }, [scenario, setScenario]);
+    
+    setIsDraged(true);
+  }, [scenario, setScenario, setIsDraged]);
 
   const renderCard = (scenarioItem, index, deleteScenario, reorderScenario) => {
-    console.log('scenarioItem', scenarioItem, 'index', index, 'deleteScenario', deleteScenario);
+    console.log('scenarioItem', scenarioItem, 'index', index);
 
     return (
       <ScenarioItem

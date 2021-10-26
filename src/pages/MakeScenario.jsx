@@ -35,6 +35,7 @@ const MakeScenario = ({ location }) => {
   const [userAgent, setUserAgent] = useState('Android');
   const [scenario, setScenario] = useState([]);
   const [isInit, setIsInit] = useState(true);
+  const [isDraged, setIsDraged] = useState(false);
 
   const updateUserAgent = useCallback((userAgent) => {
     const updateUsers = users.map((data, key) => {
@@ -87,8 +88,6 @@ const MakeScenario = ({ location }) => {
   }
 
   const deleteScenario = (deletedKey) => {
-    console.log('deletecommands', deletedKey);
-
     const updatedUsers = users.map((data, key) => {
       if (parseInt(selectedUser, 10) !== key) return data;
 
@@ -100,10 +99,17 @@ const MakeScenario = ({ location }) => {
   }
 
   const reorderScenario = () => {
+    const updateUsers = users.map((data, key) => {
+      if (selectedUser !== key) return data;
 
+      return Object.assign({}, data, { commands: scenario });
+    });
+
+    setUsers(updateUsers);
   }
 
   const onClickSubmit = () => {
+    console.log(users);
     postScenarioCreate({ "file_name": parsed.fileName, "listener_count": parsed.userCount, "listeners" : users});
   };
 
@@ -132,6 +138,13 @@ const MakeScenario = ({ location }) => {
       setIsInit(false);
     }
   }, [isInit, setUsers, users, selectedUser, userAgent]);
+  
+  useEffect(() => {
+    if (isDraged && scenario) {
+      reorderScenario();
+      setIsDraged(false);
+    }
+  }, [isDraged, scenario, reorderScenario]);
 
   return (
       <div>
@@ -163,6 +176,7 @@ const MakeScenario = ({ location }) => {
               setScenario={setScenario}
               deleteScenario={deleteScenario}
               reorderScenario={reorderScenario}
+              setIsDraged={setIsDraged}
             />
           </DndProvider>
 
