@@ -24,6 +24,12 @@ const UserType=({updateAppVersion, appVersion, setAppVersion, userAgent, setUser
         setUserAgent(userAgent)
     }
 
+    const onKeyDownAppVersionInput = (e) => {
+        if (e.keyCode !== 13) return;
+
+        updateAppVersion();
+    }
+
     const onSubmitAppVersionInput = () => {
         console.log('userAgent', appVersion);
 
@@ -67,7 +73,7 @@ const UserType=({updateAppVersion, appVersion, setAppVersion, userAgent, setUser
                     value={appVersion}
                     placeholder="앱 버전을 입력하세요"
                     onChange={onChangeAppVersionInput}
-                    // onKeyDown={onSubmitAppVersionInput}
+                    onKeyDown={onKeyDownAppVersionInput}
                 />
                 <button onClick={onSubmitAppVersionInput}>저장</button>
             </div>

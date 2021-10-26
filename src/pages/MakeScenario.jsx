@@ -8,6 +8,7 @@ import Select from 'react-select';
 import axios from "axios";
 import UserType from "../components/UserType";
 import Users from "../components/Users";
+import {postScenarioCreate} from "../lib/Api";
 
 const MakeScenario = ({ location }) => {
   const parsed = queryString.parse(location.search);
@@ -26,7 +27,7 @@ const MakeScenario = ({ location }) => {
     return { 
       user_agent: '',
       app_version: '',
-      scenario: []
+      commands: []
     }
   }));
   const [selectedUser, setSelectedUser] = useState(0);
@@ -65,7 +66,7 @@ const MakeScenario = ({ location }) => {
   const isScenarioEmpty = () => {
     const key = parseInt(selectedUser, 10);
 
-    return users[key]?.scenario?.length === 0;
+    return users[key]?.commands?.length === 0;
   }
 
   const updateScenario = (updateCommands) => {
@@ -74,11 +75,11 @@ const MakeScenario = ({ location }) => {
     const updateUsers = users.map((data, key) => {
       if (parseInt(selectedUser, 10) !== key) return data;
 
-      const prevScenario = data?.scenario;
+      const prevScenario = data?.commands;
       const updateScenario = prevScenario.concat(updateCommands);
 
       setScenario(updateScenario);
-      return { ...data, ...{ scenario: updateScenario } }
+      return { ...data, ...{ commands: updateScenario } }
     });
 
     console.log('updateUsers', updateUsers);
@@ -91,8 +92,8 @@ const MakeScenario = ({ location }) => {
     const updatedUsers = users.map((data, key) => {
       if (parseInt(selectedUser, 10) !== key) return data;
 
-      const updateScenario = data?.scenario.filter((data, key) => deletedKey !== key);
-      return Object.assign({}, data, {scenario: updateScenario});
+      const updateScenario = data?.commands.filter((data, key) => deletedKey !== key);
+      return Object.assign({}, data, {commands: updateScenario});
     })
 
     setUsers(updatedUsers);
@@ -103,20 +104,7 @@ const MakeScenario = ({ location }) => {
   }
 
   const onClickSubmit = () => {
-    // TODO: users(listener) 를 params 으로 보내기
-    console.log('listeners', users);
-
-    axios.post("url", {scenario})
-      .then(function (response) {
-        // response
-      }).catch(function (error) {
-      // 오류발생시 실행
-    });
-    // 체이닝이 많으면, 가독성이 떨어짐. 이런 경우 asyn, await 권장
-    // .then(function() {
-    // 항상 실행
-    // console.log(scenario)
-    // });
+    postScenarioCreate({ "file_name": parsed.fileName, "listener_count": parsed.userCount, "listeners" : users});
   };
 
   useEffect(() => {
@@ -124,7 +112,7 @@ const MakeScenario = ({ location }) => {
     if (!isNaN(parseInt(selectedUser, 0))) {
       const userAgent = users[selectedUser]?.user_agent ?? '';
       const appVersion = users[selectedUser]?.app_version ?? '';
-      const scenario = users[selectedUser]?.scenario;
+      const scenario = users[selectedUser]?.commands;
       
       setUserAgent(userAgent);
       setAppVersion(appVersion);

@@ -8,15 +8,15 @@ const CommandInput = ({ users, setUsers, appVersion, userAgent, scenario, setSce
   const [sticker, setSticker] = useState('');
   const inputRef = useRef(null);
   const [options, setOptions] = useState([
-    { value: "leave", label: "퇴장" },
-    { value: "join", label: "입장" },
-    { value: "chat", label: "채팅" },
-    { value: "present", label: "스푼" },
-    { value: "like", label: "좋아요" },
+    { command: "leave", label: "퇴장" },
+    { command: "join", label: "입장" },
+    { command: "chat", label: "채팅" },
+    { command: "present", label: "스푼" },
+    { command: "like", label: "좋아요" },
   ])
 
-  const [period, setPeriod] = useState('');
-  const [count, setCount] = useState('');
+  const [period, setPeriod] = useState(1000);
+  const [count, setCount] = useState(1);
   const [amount, setAmount] = useState('');
   const [combo, setCombo] = useState('');
   const [stickerOptions, setStickerOptions] = useState([
@@ -47,7 +47,8 @@ const CommandInput = ({ users, setUsers, appVersion, userAgent, scenario, setSce
 
   const handleCreate = useCallback(
     (inputValue) => {
-      const newValue = { value: inputValue.toLowerCase(), label: inputValue };
+      const newValue = { command: inputValue.toLowerCase(), label: inputValue };
+
       setOptions([...options, newValue]);
       setValue(newValue);
     },
