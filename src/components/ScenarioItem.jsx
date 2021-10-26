@@ -75,10 +75,6 @@ const ScenarioItem = ({ index, id, moveCard, scenarioItem, scenario, deleteScena
     deleteScenario(index);
   }
 
-  const handleReorderTest = () => {
-    // reorderScenario();
-  }  
-
   // 삭제 기능
 
   // const onSubmitDeleteButton = (selectedKey) => {

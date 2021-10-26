@@ -87,8 +87,6 @@ const MakeScenario = ({ location }) => {
   }
 
   const deleteScenario = (deletedKey) => {
-    console.log('deletecommands', deletedKey);
-
     const updatedUsers = users.map((data, key) => {
       if (parseInt(selectedUser, 10) !== key) return data;
 
@@ -104,6 +102,7 @@ const MakeScenario = ({ location }) => {
   }
 
   const onClickSubmit = () => {
+    console.log(users);
     postScenarioCreate({ "file_name": parsed.fileName, "listener_count": parsed.userCount, "listeners" : users});
   };
 
@@ -133,6 +132,10 @@ const MakeScenario = ({ location }) => {
     }
   }, [isInit, setUsers, users, selectedUser, userAgent]);
 
+  useEffect(() => {
+    console.log('sce', scenario);
+  }, [scenario]);
+  
   return (
       <div>
         <div className="MakeScenario">
