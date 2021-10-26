@@ -24,19 +24,19 @@ const CommandInput = ({ users, setUsers, appVersion, userAgent, scenario, setSce
   ])
 
   const onChangePeriodInput = (e) => {
-    setPeriod(e.target.value);
+    setPeriod(parseInt(e.target.value, 10));
   };
 
   const onChangeCountInput = (e) => {
-    setCount(e.target.value);
+    setCount(parseInt(e.target.value, 10));
   };
 
   const onChangeAmountInput = (e) => {
-    setAmount(e.target.value);
+    setAmount(parseInt(e.target.value, 10));
   };
 
   const onChangeComboInput = (e) => {
-    setCombo(e.target.value);
+    setCombo(parseInt(e.target.value, 10));
   };
 
 
