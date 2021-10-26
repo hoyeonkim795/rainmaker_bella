@@ -35,6 +35,7 @@ const MakeScenario = ({ location }) => {
   const [userAgent, setUserAgent] = useState('Android');
   const [scenario, setScenario] = useState([]);
   const [isInit, setIsInit] = useState(true);
+  const [isDraged, setIsDraged] = useState(false);
 
   const updateUserAgent = useCallback((userAgent) => {
     const updateUsers = users.map((data, key) => {
@@ -98,7 +99,13 @@ const MakeScenario = ({ location }) => {
   }
 
   const reorderScenario = () => {
+    const updateUsers = users.map((data, key) => {
+      if (selectedUser !== key) return data;
 
+      return Object.assign({}, data, { commands: scenario });
+    });
+
+    setUsers(updateUsers);
   }
 
   const onClickSubmit = () => {
@@ -131,11 +138,14 @@ const MakeScenario = ({ location }) => {
       setIsInit(false);
     }
   }, [isInit, setUsers, users, selectedUser, userAgent]);
-
-  useEffect(() => {
-    console.log('sce', scenario);
-  }, [scenario]);
   
+  useEffect(() => {
+    if (isDraged && scenario) {
+      reorderScenario();
+      setIsDraged(false);
+    }
+  }, [isDraged, scenario, reorderScenario]);
+
   return (
       <div>
         <div className="MakeScenario">
@@ -166,6 +176,7 @@ const MakeScenario = ({ location }) => {
               setScenario={setScenario}
               deleteScenario={deleteScenario}
               reorderScenario={reorderScenario}
+              setIsDraged={setIsDraged}
             />
           </DndProvider>
 
