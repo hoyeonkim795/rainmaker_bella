@@ -1,14 +1,7 @@
 import React from 'react';
-// import Select from "react-select";
-// import CommandInput from "./CommandInput";
-// import {DndProvider} from "react-dnd";
-// import {HTML5Backend} from "react-dnd-html5-backend";
-// import Scenario from "./Scenario";
 
 const Users = ({ users, selectedUser, setSelectedUser }) => {
-    /* const handleChange = useCallback((e) => {
-      setSelectedUser(inputValue)
-    }); */
+
 
     const handleChange = (e) => {
       const selectedUser = e.target.value;
@@ -18,15 +11,8 @@ const Users = ({ users, selectedUser, setSelectedUser }) => {
 
     return (
       <div className='Users'>
-        {/* <Select
-          type="text"
-          name="user"
-          value={users.i}
-          placeholder="청취자 번호를 선택하를세요"
-          options={users}
-          onChange={handleChange}
-        /> */}
         <select
+          className="user_number"
           onChange={handleChange}
           value={selectedUser}
           placeholder={'청취자 번호를 선택하세요.'}
