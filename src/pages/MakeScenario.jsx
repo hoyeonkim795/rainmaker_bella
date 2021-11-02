@@ -4,6 +4,7 @@ import Scenario from "../components/Scenario";
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import queryString from 'query-string';
+import Listeners from "../components/Listeners";
 import ListenerType from "../components/ListenerType";
 import {postScenarioCreate} from "../lib/Api";
 
@@ -134,7 +135,7 @@ const MakeScenario = ({ location }) => {
         <div className="MakeScenario">
           <div className="user-list-wrap">
             <h1>청취자 선택</h1>
-            <listeners listeners={listeners} selectedListener={selectedListener} setSelectedListener={setSelectedListener}/>
+            <Listeners listeners={listeners} selectedListener={selectedListener} setSelectedListener={setSelectedListener}/>
           </div>
 
           <div className="user-agent-wrap">
