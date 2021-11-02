@@ -1,12 +1,11 @@
-import React, { useRef, useState, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import Select from "react-select";
 
-const CommandInput = ({ users, setUsers, appVersion, userAgent, scenario, setScenario }) => { // (1)
+const CommandInput = ({ listeners, setListeners, appVersion, listenerAgent, scenario, setScenario }) => { // (1)
 
   const [value, setValue] = useState('');
   const [sticker, setSticker] = useState('');
-  const inputRef = useRef(null);
   const [options, setOptions] = useState([
     { command: "leave", label: "퇴장" },
     { command: "join", label: "입장" },
@@ -71,7 +70,7 @@ const CommandInput = ({ users, setUsers, appVersion, userAgent, scenario, setSce
     const commandData = value;
     let updateCommands = null;
     let data = null;
-    // if (appVersion=='' || userAgent=='' || value == '') {
+    // if (appVersion=='' || listenerAgent=='' || value == '') {
     //   alert("필수값 입력")
     // } else {
       if (/present/gi.test(commandData?.value)) {

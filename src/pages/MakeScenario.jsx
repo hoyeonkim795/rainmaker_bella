@@ -4,77 +4,60 @@ import Scenario from "../components/Scenario";
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import queryString from 'query-string';
-import Select from 'react-select';
-import axios from "axios";
-import UserType from "../components/UserType";
-import Users from "../components/Users";
+import ListenerType from "../components/ListenerType";
 import {postScenarioCreate} from "../lib/Api";
 
 const MakeScenario = ({ location }) => {
   const parsed = queryString.parse(location.search);
-  // query string 넘기기
-  // console.log(parsed.roomId, parsed.userCount, parsed.scenarioCount)
-  const [users, setUsers] = useState(Array.from({length: parsed.scenarioCount}, (v,i)=> {
-    // "label": i,
-    // "value": {
-    //   "access_control": true,
-    //   "user_agent":"",
-    //   "app_version": "",
-    //   "scenario": {
-    //     "commands": []
-    //   }
-    // }
+  const [listeners, setListeners] = useState(Array.from({length: parsed.scenarioCount}, (v,i)=> {
     return { 
       user_agent: '',
       app_version: '',
       commands: []
     }
   }));
-  const [selectedUser, setSelectedUser] = useState(0);
+  const [selectedListener, setSelectedListener] = useState(0);
   const [appVersion, setAppVersion] = useState('');
-  const [userAgent, setUserAgent] = useState('Android');
+  const [listenerAgent, setListenerAgent] = useState('Android');
   const [scenario, setScenario] = useState([]);
   const [isInit, setIsInit] = useState(true);
   const [isDraged, setIsDraged] = useState(false);
 
-  const updateUserAgent = useCallback((userAgent) => {
-    const updateUsers = users.map((data, key) => {
-      if (parseInt(selectedUser, 10) !== key) return data;
+  const updateListenerAgent = useCallback((listenerAgent) => {
+    const updateListeners = listeners.map((data, key) => {
+      if (parseInt(selectedListener, 10) !== key) return data;
 
-      return { ...data, ...{user_agent: userAgent}}
+      return { ...data, ...{user_agent: listenerAgent}}
     });
 
-    console.log('update users with user agent', updateUsers);
-    setUserAgent(userAgent);
-    setUsers(updateUsers);
-  }, [setUserAgent, users, setUsers, selectedUser]);
+    console.log('update listeners with user agent', updateListeners);
+    setListenerAgent(listenerAgent);
+    setListeners(updateListeners);
+  }, [setListenerAgent, listeners, setListeners, selectedListener]);
   
   const updateAppVersion = useCallback(() => {
-    const updateUsers = users.map((data, key) => {
-      if (parseInt(selectedUser, 10) !== key) return data;
+    const updateListeners = listeners.map((data, key) => {
+      if (parseInt(selectedListener, 10) !== key) return data;
 
       return {...data, ...{app_version: appVersion}}
     });
 
-    console.log('update users with app version', updateUsers);
-    setUsers(updateUsers);
-  }, [appVersion, users, setUsers, selectedUser]);
-  // onEnter, submit btn
-  // const updateAppVersion = useCallback(() => {
-  // }, [setAppVersion, users, ]);
+    console.log('update listeners with app version', updateListeners);
+    setListeners(updateListeners);
+  }, [appVersion, listeners, setListeners, selectedListener]);
 
 
   const isScenarioEmpty = () => {
-    const key = parseInt(selectedUser, 10);
+    const key = parseInt(selectedListener, 10);
 
-    return users[key]?.commands?.length === 0;
+    return listeners[key]?.commands?.length === 0;
   }
 
   const updateScenario = (updateCommands) => {
-    console.log('update commands', updateCommands, 'selectedUser ', selectedUser);
+    console.log('update commands', updateCommands, 'selectedListener ', selectedListener);
 
-    const updateUsers = users.map((data, key) => {
-      if (parseInt(selectedUser, 10) !== key) return data;
+    const updateListeners = listeners.map((data, key) => {
+      if (parseInt(selectedListener, 10) !== key) return data;
 
       const prevScenario = data?.commands;
       const updateScenario = prevScenario.concat(updateCommands);
@@ -83,61 +66,61 @@ const MakeScenario = ({ location }) => {
       return { ...data, ...{ commands: updateScenario } }
     });
 
-    console.log('updateUsers', updateUsers);
-    setUsers(updateUsers);
+    console.log('updateListeners', updateListeners);
+    setListeners(updateListeners);
   }
 
   const deleteScenario = (deletedKey) => {
-    const updatedUsers = users.map((data, key) => {
-      if (parseInt(selectedUser, 10) !== key) return data;
+    const updatedlisteners = listeners.map((data, key) => {
+      if (parseInt(selectedListener, 10) !== key) return data;
 
       const updateScenario = data?.commands.filter((data, key) => deletedKey !== key);
       return Object.assign({}, data, {commands: updateScenario});
     })
 
-    setUsers(updatedUsers);
+    setListeners(updatedlisteners);
   }
 
   const reorderScenario = () => {
-    const updateUsers = users.map((data, key) => {
-      if (selectedUser !== key) return data;
+    const updateListeners = listeners.map((data, key) => {
+      if (selectedListener !== key) return data;
 
       return Object.assign({}, data, { commands: scenario });
     });
 
-    setUsers(updateUsers);
+    setListeners(updateListeners);
   }
 
   const onClickSubmit = () => {
-    console.log(users);
-    postScenarioCreate({ "file_name": parsed.fileName, "listener_count": parsed.userCount, "listeners" : users});
+    console.log(listeners);
+    postScenarioCreate({ "file_name": parsed.fileName, "listener_count": parsed.listenerCount, "listeners" : listeners});
   };
 
   useEffect(() => {
-    // if (selectedUser) 는 0의 경우, false 
-    if (!isNaN(parseInt(selectedUser, 0))) {
-      const userAgent = users[selectedUser]?.user_agent ?? '';
-      const appVersion = users[selectedUser]?.app_version ?? '';
-      const scenario = users[selectedUser]?.commands;
+    // if (selectedListener) 는 0의 경우, false 
+    if (!isNaN(parseInt(selectedListener, 0))) {
+      const listenerAgent = listeners[selectedListener]?.user_agent ?? '';
+      const appVersion = listeners[selectedListener]?.app_version ?? '';
+      const scenario = listeners[selectedListener]?.commands;
       
-      setUserAgent(userAgent);
+      setListenerAgent(listenerAgent);
       setAppVersion(appVersion);
       setScenario(scenario);
     }
-  }, [selectedUser, setAppVersion, setUserAgent, setScenario, users]);
+  }, [selectedListener, setAppVersion, setListenerAgent, setScenario, listeners]);
 
   useEffect(() => {
     if (isInit) {
-      const initUsers = users.map((data, key) => {
-        if (selectedUser !== key) return data;
+      const initlisteners = listeners.map((data, key) => {
+        if (selectedListener !== key) return data;
 
-        return Object.assign({}, data, {user_agent: userAgent});
+        return Object.assign({}, data, {user_agent: listenerAgent});
       });
 
-      setUsers(initUsers);
+      setListeners(initlisteners);
       setIsInit(false);
     }
-  }, [isInit, setUsers, users, selectedUser, userAgent]);
+  }, [isInit, setListeners, listeners, selectedListener, listenerAgent]);
   
   useEffect(() => {
     if (isDraged && scenario) {
@@ -151,13 +134,12 @@ const MakeScenario = ({ location }) => {
         <div className="MakeScenario">
           <div className="user-list-wrap">
             <h1>청취자 선택</h1>
-            <Users users={users} selectedUser={selectedUser} setSelectedUser={setSelectedUser}/>
+            <listeners listeners={listeners} selectedListener={selectedListener} setSelectedListener={setSelectedListener}/>
           </div>
 
           <div className="user-agent-wrap">
             <h1>청취자 환경</h1>
-            { /* <UserType users={users} setUsers={setUsers} selectedUser={selectedUser} appVersion={appVersion} setAppVersion={setAppVersion} userAgent={userAgent} setUserAgent={setUserAgent}/> */}
-            <UserType userAgent={userAgent} appVersion={appVersion} setAppVersion={setAppVersion} setUserAgent={updateUserAgent} updateAppVersion={updateAppVersion}/>
+            <ListenerType listenerAgent={listenerAgent} appVersion={appVersion} setAppVersion={setAppVersion} setListenerAgent={updateListenerAgent} updateAppVersion={updateAppVersion}/>
           </div>
 
           <div className="user-event-wrap">
@@ -165,13 +147,11 @@ const MakeScenario = ({ location }) => {
             <CommandInput setScenario={updateScenario}/>
           </div>
 
-        { /* <CommandInput selectedUser={selectedUser} users={users} setUsers={setUsers} appVersion={appVersion} userAgent={userAgent} scenario={scenario} setScenario={updateScenario} /> */}        
-        
           <DndProvider backend={HTML5Backend}>
             <Scenario    // (1)
               title={'시나리오'}
-              users={users}
-              setUsers={setUsers}
+              listeners={listeners}
+              setListeners={setListeners}
               scenario={scenario}
               setScenario={setScenario}
               deleteScenario={deleteScenario}
