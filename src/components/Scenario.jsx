@@ -1,9 +1,8 @@
 import React, {useCallback} from 'react';
-import PropTypes from 'prop-types';
 import ScenarioItem from './ScenarioItem';
 import update from 'immutability-helper';
 
-const Scenario = ({ users, setUsers, title, scenario, setScenario, deleteScenario, reorderScenario, setIsDraged }) => {
+const Scenario = ({ listeners, setListeners, title, scenario, setScenario, deleteScenario, reorderScenario, setIsDraged }) => {
   const moveCard = useCallback((dragIndex, hoverIndex) => {
     const dragCard = scenario[dragIndex];
 
@@ -26,8 +25,8 @@ const Scenario = ({ users, setUsers, title, scenario, setScenario, deleteScenari
         index={index}
         id={index}
         scenarioItem={scenarioItem}
-        users={users}
-        setUsers={setUsers}
+        listeners={listeners}
+        setListeners={setListeners}
         scenario={scenario}
         setScenario={setScenario}
         moveCard={moveCard}

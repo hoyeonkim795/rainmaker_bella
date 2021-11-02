@@ -1,11 +1,9 @@
 import React, { useRef, useState } from 'react';
-import PropTypes from 'prop-types';
-import MakeScenario from "../pages/MakeScenario";
-import { Link, Route, Switch } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const DefaultSetting = ({ defaultSetting, setDefaultSetting }) => {
   const [fileName, setFileName] = useState('');
-  const [userCount, setUserCount] = useState('');
+  const [listenerCount, setListenerCount] = useState('');
   const [scenarioCount, setScenarioCount] = useState('');
 
   const inputRef = useRef(null);
@@ -17,8 +15,8 @@ const DefaultSetting = ({ defaultSetting, setDefaultSetting }) => {
   };
 
 
-  const onChangeUserCountInput = (e) => {
-    setUserCount(e.target.value);
+  const onChangelistenerCountInput = (e) => {
+    setListenerCount(e.target.value);
 
   };
 
@@ -28,13 +26,13 @@ const DefaultSetting = ({ defaultSetting, setDefaultSetting }) => {
   };
 
   const onClickAddButton = () => {
-      if (fileName===''||userCount===''||scenarioCount==='') {
+      if (fileName===''||listenerCount===''||scenarioCount==='') {
           alert("필수값 입력 !")
       }
       else {
           const newDefaultSetting = {
               fileName: fileName,
-              userCount: userCount,
+              listenerCount: listenerCount,
               scenarioCount: scenarioCount
           }
           setDefaultSetting(newDefaultSetting)
@@ -69,11 +67,11 @@ const DefaultSetting = ({ defaultSetting, setDefaultSetting }) => {
                 <input
                     className='input-default-setting-tag'
                     type="number"
-                    name="userCount"
-                    value={userCount}
+                    name="listenerCount"
+                    value={listenerCount}
                     ref={inputRef}
                     placeholder="청취자 전체 수"
-                    onChange={onChangeUserCountInput}
+                    onChange={onChangelistenerCountInput}
                 />
             </div>
         </div>
@@ -97,7 +95,7 @@ const DefaultSetting = ({ defaultSetting, setDefaultSetting }) => {
         {/* Todo params change string to Int */}
         <div className="default-setting-btn-box">
             {
-                fileName!==''&& userCount!=='' && scenarioCount!=='' ? <Link to={ `/scenario?fileName=${fileName}&userCount=${userCount}&scenarioCount=${scenarioCount}`}>
+                fileName!==''&& listenerCount!=='' && scenarioCount!=='' ? <Link to={ `/scenario?fileName=${fileName}&listenerCount=${listenerCount}&scenarioCount=${scenarioCount}`}>
                         <button
                             type="submit"
                             className="create-default-setting-btn"

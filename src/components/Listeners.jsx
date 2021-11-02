@@ -1,24 +1,24 @@
 import React from 'react';
 
-const Users = ({ users, selectedUser, setSelectedUser }) => {
+const Listeners = ({ listeners, selectedListener, setSelectedListener }) => {
 
 
     const handleChange = (e) => {
-      const selectedUser = e.target.value;
+      const selectedListener = e.target.value;
 
-      setSelectedUser(selectedUser);
+      setSelectedListener(selectedListener);
     }
 
     return (
-      <div className='Users'>
+      <div className='listeners'>
         <select
           className="user_number"
           onChange={handleChange}
-          value={selectedUser}
+          value={selectedListener}
           placeholder={'청취자 번호를 선택하세요.'}
         >
           {
-            users.map((data, key) => {
+            listeners.map((data, key) => {
               return (
                 <option key={key} label={key}>
                   {key}
@@ -34,4 +34,4 @@ const Users = ({ users, selectedUser, setSelectedUser }) => {
 // props 값 검증
 
 
-export default Users;
+export default Listeners;

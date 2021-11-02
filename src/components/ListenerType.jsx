@@ -1,7 +1,6 @@
-import React, {useCallback, useRef, useState} from 'react';
-import Select from "react-select";
+import React, {useState} from 'react';
 
-const UserType=({updateAppVersion, appVersion, setAppVersion, userAgent, setUserAgent}) => {
+const ListenerType=({updateAppVersion, appVersion, setAppVersion, listenerAgent, setListenersAgent}) => {
     const [options] = useState([
         {
             label: "Android", value: "Android"
@@ -19,9 +18,9 @@ const UserType=({updateAppVersion, appVersion, setAppVersion, userAgent, setUser
     };
 
     const handleChange = (e) => {
-        const userAgent = e.target.value;
+        const listenerAgent = e.target.value;
 
-        setUserAgent(userAgent)
+        setListenersAgent(listenerAgent)
     }
 
     const onKeyDownAppVersionInput = (e) => {
@@ -31,28 +30,20 @@ const UserType=({updateAppVersion, appVersion, setAppVersion, userAgent, setUser
     }
 
     const onSubmitAppVersionInput = () => {
-        console.log('userAgent', appVersion);
+        console.log('listenerAgent', appVersion);
 
         updateAppVersion();    
     }
 
-    /* const handleChange = useCallback((inputValue) => setUserAgent(inputValue)
+    /* const handleChange = useCallback((inputValue) => setListenerAgent(inputValue)
         , []); */
 
     return (
         <div>
-            { /* <Select
-                type="text"
-                name="user"
-                value={userAgent}
-                placeholder="청취자 OS를 선택하세요"
-                options={options}
-                onChange={handleChange}
-            /> */}
             <select
                 className="select_os_box"
                 onChange={handleChange}
-                value={userAgent}
+                value={listenerAgent}
                 placeholder="청취자 OS를 선택하세요"
             >
                 {
@@ -84,4 +75,4 @@ const UserType=({updateAppVersion, appVersion, setAppVersion, userAgent, setUser
 };
 
 
-export default UserType;
+export default ListenerType;

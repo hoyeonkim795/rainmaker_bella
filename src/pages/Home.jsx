@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import DefaultSetting from "../components/DefaultSetting";
-import { Route } from 'react-router-dom';
-import MakeScenario from "./MakeScenario";
 
 const Home = () => {
 
