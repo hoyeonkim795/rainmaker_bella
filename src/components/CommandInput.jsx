@@ -24,6 +24,7 @@ const CommandInput = ({ setScenario }) => { // (1)
 
   const onClickAddButton = () => {
     console.log('command !!', command)
+
     const commandData = options.find(data => data?.command === command);
     let updateCommands = null;
     let data = null;
@@ -60,15 +61,6 @@ const CommandInput = ({ setScenario }) => { // (1)
               })
             }
           </select>
-          {/*<Select*/}
-          {/*  type="text"*/}
-          {/*  name="scenarioItem"*/}
-          {/*  value={value}*/}
-          {/*  placeholder="청취자 행위를 선택해주세요"*/}
-          {/*  options={options}*/}
-          {/*  onChange={handleChange}*/}
-          {/*  // onCreateOption={handleCreate}*/}
-          {/*/>*/}
         </div>
       <div>
         <CommandInputOption command={command} period={period} count={count} combo={combo} amount={amount} sticker={sticker}
@@ -76,7 +68,6 @@ const CommandInput = ({ setScenario }) => { // (1)
                             setCombo={setCombo} setAmount={setAmount} setSticker={setSticker}
         />
       </div>
-      {/* 입력 후 아이템 추가 버튼 */}
       <div className="input-button-box">
         <button
           type="submit"

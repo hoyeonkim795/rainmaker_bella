@@ -31,7 +31,4 @@ const Listeners = ({ listeners, selectedListener, setSelectedListener }) => {
     );
 };
 
-// props 값 검증
-
-
 export default Listeners;

@@ -92,7 +92,6 @@ const DefaultSetting = ({ defaultSetting, setDefaultSetting }) => {
                 />
             </div>
         </div>
-        {/* Todo params change string to Int */}
         <div className="default-setting-btn-box">
             {
                 fileName!==''&& listenerCount!=='' && scenarioCount!=='' ? <Link to={ `/scenario?fileName=${fileName}&listenerCount=${listenerCount}&scenarioCount=${scenarioCount}`}>

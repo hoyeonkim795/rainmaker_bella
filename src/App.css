@@ -171,6 +171,14 @@
   font-size: 18px;
 }
 
+.select_sticker_box {
+  left: 50%;
+  height: 50px;
+  border-radius: 5px;
+  width: 100%;
+  font-size: 18px;
+}
+
 .user_number {
   left: 50%;
   height: 50px;

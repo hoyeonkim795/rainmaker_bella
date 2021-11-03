@@ -31,7 +31,6 @@ const Scenario = ({ listeners, setListeners, title, scenario, setScenario, delet
         setScenario={setScenario}
         moveCard={moveCard}
         deleteScenario={deleteScenario}
-        // reorderScenario={reorderScenario}
       />
     );
   }
@@ -47,7 +46,7 @@ const Scenario = ({ listeners, setListeners, title, scenario, setScenario, delet
       </div>
       <ul className="todoapp__list-ul">
         {scenario?.length > 0 && scenario.map((scenarioItem, i) => {
-          console.log('scenarioitem', scenarioItem);
+          console.log('scenarioItem', scenarioItem);
           return(
             renderCard(scenarioItem, i, deleteScenario)
           );

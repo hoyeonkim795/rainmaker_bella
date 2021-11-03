@@ -35,9 +35,6 @@ const ListenerType=({updateAppVersion, appVersion, setAppVersion, listenerAgent,
         updateAppVersion();    
     }
 
-    /* const handleChange = useCallback((inputValue) => setListenerAgent(inputValue)
-        , []); */
-
     return (
         <div>
             <select
