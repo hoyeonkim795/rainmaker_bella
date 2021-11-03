@@ -1,21 +1,19 @@
 import React, { useRef, useState } from 'react';
 import { Link } from 'react-router-dom'
 
-const DefaultSetting = ({ defaultSetting, setDefaultSetting }) => {
+const DefaultSetting = ({ setDefaultSetting }) => {
   const [fileName, setFileName] = useState('');
   const [listenerCount, setListenerCount] = useState('');
   const [scenarioCount, setScenarioCount] = useState('');
 
   const inputRef = useRef(null);
 
-  // input 값 가져오기
   const onChangeFileNameInput = (e) => {
     setFileName(e.target.value);
 
   };
 
-
-  const onChangelistenerCountInput = (e) => {
+  const onChangeListenerCountInput = (e) => {
     setListenerCount(e.target.value);
 
   };
@@ -71,7 +69,7 @@ const DefaultSetting = ({ defaultSetting, setDefaultSetting }) => {
                     value={listenerCount}
                     ref={inputRef}
                     placeholder="청취자 전체 수"
-                    onChange={onChangelistenerCountInput}
+                    onChange={onChangeListenerCountInput}
                 />
             </div>
         </div>
@@ -115,8 +113,5 @@ const DefaultSetting = ({ defaultSetting, setDefaultSetting }) => {
     </div>
   );
 };
-
-// props 값 검증
-
 
 export default DefaultSetting;

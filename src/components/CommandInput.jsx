@@ -1,7 +1,6 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 
 import CommandInputOption from "./CommandInputOption";
-import Present from "./Present";
 
 const CommandInput = ({ setScenario }) => { // (1)
   const [sticker, setSticker] = useState('');
@@ -23,13 +22,10 @@ const CommandInput = ({ setScenario }) => { // (1)
   }
 
   const onClickAddButton = () => {
-    console.log('command !!', command)
-
     const commandData = options.find(data => data?.command === command);
     let updateCommands = null;
     let data = null;
       if (/present/gi.test(command)) {
-        console.log('amount ', amount, 'combo ', combo, 'sticker ', sticker);
         if (!(amount && combo && sticker)) return alert('필수값 입력');
 
         data = { amount, combo, sticker }

@@ -17,8 +17,6 @@ const Scenario = ({ listeners, setListeners, title, scenario, setScenario, delet
   }, [scenario, setScenario, setIsDraged]);
 
   const renderCard = (scenarioItem, index, deleteScenario, reorderScenario) => {
-    console.log('scenarioItem', scenarioItem, 'index', index);
-
     return (
       <ScenarioItem
         key={index}

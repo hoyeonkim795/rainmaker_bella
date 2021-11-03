@@ -5,7 +5,6 @@ const Listeners = ({ listeners, selectedListener, setSelectedListener }) => {
 
     const handleChange = (e) => {
       const selectedListener = e.target.value;
-
       setSelectedListener(selectedListener);
     }
 
