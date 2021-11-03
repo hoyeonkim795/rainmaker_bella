@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
-import Present from "./Present";
-import Select from "react-select";
+
+import CommandInputOption from "./CommandInputOption";
 
 const CommandInput = ({ setScenario }) => { // (1)
 
@@ -19,26 +19,6 @@ const CommandInput = ({ setScenario }) => { // (1)
   const [count, setCount] = useState(1);
   const [amount, setAmount] = useState('');
   const [combo, setCombo] = useState('');
-
-  const onChangeAmountInput = (e) => {
-    setAmount(e.target.value);
-  };
-
-  const onChangeComboInput = (e) => {
-    setCombo(e.target.value);
-  };
-
-  const onChangeStickerInput = (e) => {
-    setSticker(e.target.value)
-  };
-
-  const onChangePeriodInput = (e) => {
-    setPeriod(e.target.value);
-  };
-
-  const onChangeCountInput = (e) => {
-    setCount(e.target.value);
-  };
 
   const onHandleChange = (e) => {
     setCommand(e.target.value)
@@ -92,7 +72,7 @@ const CommandInput = ({ setScenario }) => { // (1)
             {
               options.map((data, key) => {
                 return (
-                    <option key={key} value={data} >
+                    <option key={key} value={data?.value} >
                       {data?.label}
                     </option>
                 )
@@ -109,42 +89,10 @@ const CommandInput = ({ setScenario }) => { // (1)
           {/*  // onCreateOption={handleCreate}*/}
           {/*/>*/}
         </div>
-      <div className="input_default_setting_box">
-        <div className="input_name">
-          <h3>이벤트 발생 후 Delay time을 입력하세요</h3>
-        </div>
-        <div className="input_box">
-          <input
-            className='input-tag'
-            type="number"
-            name="period"
-            period={period}
-            // ref={inputRef}
-            placeholder="delay time"
-            onChange={onChangePeriodInput}
-          />
-        </div>
+      <div>
+        <CommandInputOption command={command} period={period} count={count} combo={combo} amount={amount} sticker={sticker}
+                            setCommand={setCommand} setPeriod={setPeriod} setCount={setCount} setCombo={setCombo} setAmount={setAmount} setSticker={setSticker}/>
       </div>
-      <div className="input_default_setting_box">
-        <div className="input_name">
-          <h3>이벤트 발생 횟수를 입력하세요</h3>
-        </div>
-        <div className="input_box">
-          <input
-            className='input-tag'
-            type="number"
-            name="count"
-            count={count}
-            // ref={inputRef}
-            placeholder="count"
-            onChange={onChangeCountInput}
-          />
-        </div>
-      </div>
-      {/present/gi.test(command.value) && (
-        <Present combo={combo} amount={amount} sticker={sticker} onChangeAmountInput={onChangeAmountInput} onChangeComboInput={onChangeComboInput} onChangeStickerInput={onChangeStickerInput}/>
-      )}
-
       {/* 입력 후 아이템 추가 버튼 */}
       <div className="input-button-box">
         <button

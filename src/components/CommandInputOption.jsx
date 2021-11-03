@@ -1,8 +1,28 @@
 import React from "react";
 import Present from "./Present";
 
-const CommandInputOption = (value, period, count, combo, amount, sticker, onChangePeriodInput, onChangeCountInput, onChangeComboInput, onChangeAmountInput, onChangeStickerInput) => {
+const CommandInputOption = ({value, period, count, combo, amount, sticker, setAmount, setCombo, setSticker, setPeriod, setCount}) => {
+    const onChangeAmountInput = (e) => {
+        console.log(e.target.value)
+        setAmount(e.target.value);
+    };
 
+    const onChangeComboInput = (e) => {
+        setCombo(e.target.value);
+    };
+
+    const onChangeStickerInput = (e) => {
+        setSticker(e.target.value)
+    };
+
+    const onChangePeriodInput = (e) => {
+        console.log('period',e.target.value)
+        setPeriod(e.target.value);
+    };
+
+    const onChangeCountInput = (e) => {
+        setCount(e.target.value);
+    };
     return (
         <div>
             <div className="input_default_setting_box">
@@ -35,9 +55,9 @@ const CommandInputOption = (value, period, count, combo, amount, sticker, onChan
                     />
                 </div>
             </div>
-            {/present/gi.test(value.command) && (
-                <Present combo={combo} amount={amount} sticker={sticker} onChangeAmountInput={onChangeAmountInput} onChangeComboInput={onChangeComboInput} onChangeStickerInput={onChangeStickerInput}/>
-            )}
+            {/*{/present/gi.test(value.command) && (*/}
+            {/*    <Present combo={combo} amount={amount} sticker={sticker} onChangeAmountInput={onChangeAmountInput} onChangeComboInput={onChangeComboInput} onChangeStickerInput={onChangeStickerInput}/>*/}
+            {/*)}*/}
         </div>
     )
 };
