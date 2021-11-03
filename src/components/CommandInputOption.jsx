@@ -3,12 +3,13 @@ import Present from "./Present";
 
 const CommandInputOption = ({value, period, count, combo, amount, sticker, setAmount, setCombo, setSticker, setPeriod, setCount}) => {
     const onChangeAmountInput = (e) => {
-        console.log(e.target.value)
-        setAmount(e.target.value);
+        const amount = parseInt(e.target.value, 10)
+        setAmount(amount);
     };
 
     const onChangeComboInput = (e) => {
-        setCombo(e.target.value);
+        const combo = parseInt(e.target.value, 10)
+        setCombo(combo);
     };
 
     const onChangeStickerInput = (e) => {
@@ -16,12 +17,14 @@ const CommandInputOption = ({value, period, count, combo, amount, sticker, setAm
     };
 
     const onChangePeriodInput = (e) => {
+        const period = parseInt(e.target.value, 10)
         console.log('period',e.target.value)
-        setPeriod(e.target.value);
+        setPeriod(period);
     };
 
     const onChangeCountInput = (e) => {
-        setCount(e.target.value);
+        const count = parseInt(e.target.value, 10)
+        setCount(count);
     };
     return (
         <div>
