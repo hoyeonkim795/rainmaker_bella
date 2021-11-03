@@ -4,18 +4,15 @@ import CommandInputOption from "./CommandInputOption";
 import Present from "./Present";
 
 const CommandInput = ({ setScenario }) => { // (1)
-
-  const [command, setCommand] = useState('');
-  const [label, setLabel] = useState('');
   const [sticker, setSticker] = useState('');
   const [options] = useState([
-    { value: "leave", label: "퇴장" },
-    { value: "join", label: "입장" },
-    { value: "chat", label: "채팅" },
-    { value: "present", label: "스푼" },
-    { value: "like", label: "좋아요" },
-  ])
-
+    { command: "leave", label: "퇴장" },
+    { command: "join", label: "입장" },
+    { command: "chat", label: "채팅" },
+    { command: "present", label: "스푼" },
+    { command: "like", label: "좋아요" },
+  ]);
+  const [command, setCommand] = useState(options[0]?.command);
   const [period, setPeriod] = useState(1000);
   const [count, setCount] = useState(1);
   const [amount, setAmount] = useState('');
@@ -24,39 +21,23 @@ const CommandInput = ({ setScenario }) => { // (1)
   const onHandleChange = (e) => {
     setCommand(e.target.value)
   }
-  // const onHandleChange = useCallback((inputValue) => {
-  //   console.log('inputValue', inputValue);
-  //   setCommand(inputValue);
-  // }, [setCommand]);
-
-  // const handleCreate = useCallback(
-  //   (inputValue) => {
-  //     const newValue = { command: inputValue.toLowerCase(), label: inputValue };
-  //
-  //     setOptions([...options, newValue]);
-  //     setValue(newValue);
-  //   },
-  //   [options]
-  // );
-
 
   const onClickAddButton = () => {
     console.log('command !!', command)
-    const commandData = command;
+    const commandData = options.find(data => data?.command === command);
     let updateCommands = null;
     let data = null;
-      if (/present/gi.test(commandData)) {
+      if (/present/gi.test(command)) {
         console.log('amount ', amount, 'combo ', combo, 'sticker ', sticker);
         if (!(amount && combo && sticker)) return alert('필수값 입력');
 
         data = { amount, combo, sticker }
       }
 
-
-      updateCommands = { period, count, ...data ? { data } : null, ... { command } }
+      updateCommands = { period, count, ...data ? { data } : null, ...commandData }
 
       setScenario(updateCommands);
-      setCommand('');
+      setCommand(options[0]?.command);
   };
 
 
@@ -73,7 +54,7 @@ const CommandInput = ({ setScenario }) => { // (1)
             {
               options.map((data, key) => {
                 return (
-                    <option key={key} value={data?.value} >
+                    <option key={key} value={data?.command} >
                       {data?.label}
                     </option>
                 )

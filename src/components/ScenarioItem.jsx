@@ -103,7 +103,7 @@ const ScenarioItem = ({ index, id, moveCard, scenarioItem, scenario, deleteScena
         <span className="todoapp__item-ctx"> {scenarioItem?.count}</span>
         {scenarioItem?.command==="present" && (
           <span className="todoapp__item-ctx">
-            {scenarioItem?.data?.sticker?.label}
+            {scenarioItem?.data?.sticker?.value}
             {/*{scenarioItem.data.amount} / {scenarioItem.data.combo} / {scenarioItem.data.sticker}*/}
           </span>
         )}
