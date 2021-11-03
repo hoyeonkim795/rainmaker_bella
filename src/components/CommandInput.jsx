@@ -95,9 +95,6 @@ const CommandInput = ({ setScenario }) => { // (1)
                             setCommand={setCommand} setPeriod={setPeriod} setCount={setCount}
                             setCombo={setCombo} setAmount={setAmount} setSticker={setSticker}
         />
-        {/*{/present/gi.test(command) && (*/}
-        {/*    <Present combo={combo} amount={amount} sticker={sticker} setCombo={setCombo} setAmount={setAmount} setSticker={setSticker}/>*/}
-        {/*)}*/}
       </div>
       {/* 입력 후 아이템 추가 버튼 */}
       <div className="input-button-box">

@@ -101,7 +101,7 @@ const ScenarioItem = ({ index, id, moveCard, scenarioItem, scenario, deleteScena
         {/*옵션 값들*/}
         <span className="todoapp__item-ctx"> {scenarioItem?.period}</span>
         <span className="todoapp__item-ctx"> {scenarioItem?.count}</span>
-        {scenarioItem?.value==="present" && (
+        {scenarioItem?.command==="present" && (
           <span className="todoapp__item-ctx">
             {scenarioItem?.data?.sticker?.label}
             {/*{scenarioItem.data.amount} / {scenarioItem.data.combo} / {scenarioItem.data.sticker}*/}

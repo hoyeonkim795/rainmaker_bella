@@ -5,7 +5,6 @@ const CommandInputOption = ({command, period, count, combo, amount, sticker, set
 
     const onChangePeriodInput = (e) => {
         const period = parseInt(e.target.value, 10)
-        console.log('period',e.target.value)
         setPeriod(period);
     };
 
