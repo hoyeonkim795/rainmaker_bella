@@ -1,8 +1,8 @@
 import React, { useState, useCallback } from 'react';
-import PropTypes from 'prop-types';
+import Present from "./Present";
 import Select from "react-select";
 
-const CommandInput = ({ listeners, setListeners, appVersion, listenerAgent, scenario, setScenario }) => { // (1)
+const CommandInput = ({ setScenario }) => { // (1)
 
   const [value, setValue] = useState('');
   const [sticker, setSticker] = useState('');
@@ -18,17 +18,6 @@ const CommandInput = ({ listeners, setListeners, appVersion, listenerAgent, scen
   const [count, setCount] = useState(1);
   const [amount, setAmount] = useState('');
   const [combo, setCombo] = useState('');
-  const [stickerOptions, setStickerOptions] = useState([
-    { value: "sticker_jp_juice", label: "sticker_jp_juice" },
-  ])
-
-  const onChangePeriodInput = (e) => {
-    setPeriod(e.target.value);
-  };
-
-  const onChangeCountInput = (e) => {
-    setCount(e.target.value);
-  };
 
   const onChangeAmountInput = (e) => {
     setAmount(e.target.value);
@@ -38,6 +27,15 @@ const CommandInput = ({ listeners, setListeners, appVersion, listenerAgent, scen
     setCombo(e.target.value);
   };
 
+  const handleStickerChange = useCallback((inputValue) => setSticker(inputValue), []);
+
+  const onChangePeriodInput = (e) => {
+    setPeriod(e.target.value);
+  };
+
+  const onChangeCountInput = (e) => {
+    setCount(e.target.value);
+  };
 
   const handleChange = useCallback((inputValue) => {
     console.log('inputValue', inputValue);
@@ -54,25 +52,12 @@ const CommandInput = ({ listeners, setListeners, appVersion, listenerAgent, scen
     [options]
   );
 
-  const handleStickerChange = useCallback((inputValue) => setSticker(inputValue), []);
-
-  const handleStickerCreate = useCallback(
-    (inputValue) => {
-      const newValue = { value: inputValue.toLowerCase(), label: inputValue };
-      setStickerOptions([...stickerOptions, newValue]);
-      setSticker(newValue);
-    },
-    [stickerOptions]
-  );
 
   const onClickAddButton = () => {
     console.log('value', value)
     const commandData = value;
     let updateCommands = null;
     let data = null;
-    // if (appVersion=='' || listenerAgent=='' || value == '') {
-    //   alert("필수값 입력")
-    // } else {
       if (/present/gi.test(commandData?.value)) {
         console.log('amount ', amount, 'combo ', combo, 'sticker ', sticker);
         if (!(amount && combo && sticker)) return alert('필수값 입력');
@@ -83,51 +68,7 @@ const CommandInput = ({ listeners, setListeners, appVersion, listenerAgent, scen
       updateCommands = { period, count, ...data ? { data } : null, ...value }
 
       setScenario(updateCommands);
-      // input 값 초기화 및 포커싱
       setValue('');
-      /* if (value.value == "present") {
-        if (amount != '' && combo != '' && sticker != '') {
-          const data = {
-            "amount":amount,
-            "combo":combo,
-            "sticker":sticker.value
-          }
-
-          const nextScenario = scenario.concat({ // (2)
-            id: scenario.length, // (2-1)
-            value, // (2-2)
-            period,
-            count,
-            data,
-          });
-          setScenario(nextScenario);
-
-          console.log(nextScenario)
-        }
-        else {
-          alert("필수 값 입력")
-        }
-        
-      } else {
-        const nextScenario = scenario.concat({ // (2)
-          id: scenario.length, // (2-1)
-          value, // (2-2)
-          period,
-          count,
-        });
-        setScenario(nextScenario);
-        console.log(nextScenario)
-      } */
-    // }
-
-    // input 값 초기화 및 포커싱
-    // setValue('');
-    // setCombo('');
-    // setPeriod('');
-    // setCount('');
-    // setSticker('');
-    // setAmount('');
-    // inputRef.current.focus();
   };
 
 
@@ -177,53 +118,8 @@ const CommandInput = ({ listeners, setListeners, appVersion, listenerAgent, scen
           />
         </div>
       </div>
-      {/present/gi.test(value.value) && (
-        <div className="input_default_setting_box">
-          <div>
-            <div className="input_name">
-              <h3>스티커 개수를 입력하세요</h3>
-            </div>
-            <div className="input_box">
-              <input
-                className='input-tag'
-                  type="number"
-                  name="amount"
-                  amount={amount}
-                  // ref={inputRef}
-                  placeholder="amount"
-                  onChange={onChangeAmountInput}
-              />
-            </div>
-            <div className="input_name">
-              <h3>콤보 개수를 입력하세요</h3>
-            </div>
-            <div className="input_box">
-              <input
-                  className='input-tag'
-                  type="number"
-                  name="combo"
-                  combo={combo}
-                  // ref={inputRef}
-                  placeholder="combo"
-                  onChange={onChangeComboInput}
-              />
-            </div>
-            <div className="input_name">
-              <h3>스티커 종류를 선택하세요</h3>
-            </div>
-            <div className="input_box">
-              <Select
-                  type="text"
-                  name="sticker"
-                  sticker={sticker}
-                  placeholder="sticker"
-                  options={stickerOptions}
-                  onChange={handleStickerChange}
-                  onCreateOption={handleStickerCreate}
-              />
-            </div>
-          </div>
-        </div>
+      {/present/gi.test(value.command) && (
+        <Present combo={combo} amount={amount} sticker={sticker} onChangeAmountInput={onChangeAmountInput} onChangeComboInput={onChangeComboInput} handleStickerChange={handleStickerChange}/>
       )}
 
       {/* 입력 후 아이템 추가 버튼 */}
@@ -238,19 +134,6 @@ const CommandInput = ({ listeners, setListeners, appVersion, listenerAgent, scen
       </div>
     </div>
   );
-};
-
-// props 값 검증
-CommandInput.propTypes = {
-  scenario: PropTypes.arrayOf( // (3)
-    PropTypes.shape({ // (3-1)
-      id: PropTypes.number.isRequired, // (3-2)
-      count: PropTypes.string.isRequired,
-      period: PropTypes.string.isRequired,
-      value: PropTypes.object.isRequired, // (3-3)
-    }).isRequired
-  ),
-  setScenario: PropTypes.func.isRequired, // (4)
 };
 
 export default CommandInput;
