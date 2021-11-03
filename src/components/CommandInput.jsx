@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
 
 import CommandInputOption from "./CommandInputOption";
+import Present from "./Present";
 
 const CommandInput = ({ setScenario }) => { // (1)
 
@@ -44,7 +45,7 @@ const CommandInput = ({ setScenario }) => { // (1)
     const commandData = command;
     let updateCommands = null;
     let data = null;
-      if (/present/gi.test(commandData?.value)) {
+      if (/present/gi.test(commandData)) {
         console.log('amount ', amount, 'combo ', combo, 'sticker ', sticker);
         if (!(amount && combo && sticker)) return alert('필수값 입력');
 
@@ -91,7 +92,12 @@ const CommandInput = ({ setScenario }) => { // (1)
         </div>
       <div>
         <CommandInputOption command={command} period={period} count={count} combo={combo} amount={amount} sticker={sticker}
-                            setCommand={setCommand} setPeriod={setPeriod} setCount={setCount} setCombo={setCombo} setAmount={setAmount} setSticker={setSticker}/>
+                            setCommand={setCommand} setPeriod={setPeriod} setCount={setCount}
+                            setCombo={setCombo} setAmount={setAmount} setSticker={setSticker}
+        />
+        {/*{/present/gi.test(command) && (*/}
+        {/*    <Present combo={combo} amount={amount} sticker={sticker} setCombo={setCombo} setAmount={setAmount} setSticker={setSticker}/>*/}
+        {/*)}*/}
       </div>
       {/* 입력 후 아이템 추가 버튼 */}
       <div className="input-button-box">
