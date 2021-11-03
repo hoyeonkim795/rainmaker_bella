@@ -1,103 +1,179 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import CommandInput from '../components/CommandInput';
 import Scenario from "../components/Scenario";
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import queryString from 'query-string';
-import Select from 'react-select';
-import axios from "axios";
-import UserType from "../components/UserType";
-import Users from "../components/Users";
+import Listeners from "../components/Listeners";
+import ListenerType from "../components/ListenerType";
 import {postScenarioCreate} from "../lib/Api";
 
 const MakeScenario = ({ location }) => {
-  const [scenario, setScenario] = useState([]);
-
   const parsed = queryString.parse(location.search);
-  // query string 넘기기
-  // console.log(parsed.roomId, parsed.userCount, parsed.scenarioCount)
-
-  const [users, setUsers] = useState(Array.from({length: parsed.scenarioCount}, (v,i)=> i = {
-    "label": i,
-    "value": {
-      "access_control": true,
-      "user_agent":"",
-      "app_version": "",
-      "scenario": {
-        "commands": [
-
-        ]
-    }
+  const [listeners, setListeners] = useState(Array.from({length: parsed.scenarioCount}, (v,i)=> {
+    return { 
+      user_agent: '',
+      app_version: '',
+      commands: []
     }
   }));
+  const [selectedListener, setSelectedListener] = useState(0);
+  const [appVersion, setAppVersion] = useState('');
+  const [listenerAgent, setListenerAgent] = useState('Android');
+  const [scenario, setScenario] = useState([]);
+  const [isInit, setIsInit] = useState(true);
+  const [isDraged, setIsDraged] = useState(false);
 
-  const [selectedUser, setSelectedUser] = useState([]);
-  const [appVersion, setAppVersion] = useState('')
-  const [userAgent, setUserAgent] = useState('')
+  const updateListenerAgent = useCallback((listenerAgent) => {
+    const  updateListeners = listeners.map((data, key) => {
+      if (parseInt(selectedListener, 10) !== key) return data;
+
+      return { ...data, ...{user_agent: listenerAgent}}
+    });
+
+    console.log('update users with user agent', updateListeners);
+    setListenerAgent(listenerAgent);
+    setListeners( updateListeners);
+  }, [setListenerAgent, listeners, setListeners, selectedListener]);
+
+
+  const updateAppVersion = useCallback(() => {
+    const updateListeners = listeners.map((data, key) => {
+      if (parseInt(selectedListener, 10) !== key) return data;
+
+      return {...data, ...{app_version: appVersion}}
+    });
+
+    console.log('update listeners with app version', updateListeners);
+    setListeners(updateListeners);
+  }, [appVersion, listeners, setListeners, selectedListener]);
 
 
   const isScenarioEmpty = () => {
-    return Array.isArray(scenario) && scenario.length === 0
+    const key = parseInt(selectedListener, 10);
+
+    return listeners[key]?.commands?.length === 0;
   }
 
-  const onClickAddButton = () => {
-    //삭제한 이벤트
+  const updateScenario = (updateCommands) => {
+    console.log('update commands', updateCommands, 'selectedListener ', selectedListener);
 
-    console.log("시나리오 생성 !!!")
-    postScenarioCreate({ "file_name": "lalala", "listener_count": 3, "pre_delay": 3, "listeners" :
-          [{
-            "user_agent" : "Web", "app_version":"2.0.2", "commands": [{
-              "command": "join", "count":1, "period":3, "data": null
-            },{
-              "command": "chat", "count":1, "period":3, "data": null
-            },
-              {
-                "command": "leave", "count":1, "period":3, "data": null
-              }
+    const updateListeners = listeners.map((data, key) => {
+      if (parseInt(selectedListener, 10) !== key) return data;
 
-            ]
-          }]
+      const prevScenario = data?.commands;
+      const updateScenario = prevScenario.concat(updateCommands);
+
+      setScenario(updateScenario);
+      return { ...data, ...{ commands: updateScenario } }
     });
 
+    console.log('updateListeners', updateListeners);
+    setListeners(updateListeners);
+  }
+
+  const deleteScenario = (deletedKey) => {
+    const updatedlisteners = listeners.map((data, key) => {
+      if (parseInt(selectedListener, 10) !== key) return data;
+
+      const updateScenario = data?.commands.filter((data, key) => deletedKey !== key);
+      return Object.assign({}, data, {commands: updateScenario});
+    })
+
+    setListeners(updatedlisteners);
+  }
+
+  const reorderScenario = () => {
+    const updateListeners = listeners.map((data, key) => {
+      if (selectedListener !== key) return data;
+
+      return Object.assign({}, data, { commands: scenario });
+    });
+
+    setListeners(updateListeners);
+  }
+
+  const onClickSubmit = () => {
+    console.log(listeners);
+    postScenarioCreate({ "file_name": parsed.fileName, "listener_count": parsed.listenerCount, "listeners" : listeners});
   };
+
+  useEffect(() => {
+    // if (selectedListener) 는 0의 경우, false 
+    if (!isNaN(parseInt(selectedListener, 0))) {
+      const listenerAgent = listeners[selectedListener]?.user_agent ?? '';
+      const appVersion = listeners[selectedListener]?.app_version ?? '';
+      const scenario = listeners[selectedListener]?.commands;
+      
+      setListenerAgent(listenerAgent);
+      setAppVersion(appVersion);
+      setScenario(scenario);
+    }
+  }, [selectedListener, setAppVersion, setListenerAgent, setScenario, listeners]);
+
+  useEffect(() => {
+    if (isInit) {
+      const initlisteners = listeners.map((data, key) => {
+        if (selectedListener !== key) return data;
+
+        return Object.assign({}, data, {user_agent: listenerAgent});
+      });
+
+      setListeners(initlisteners);
+      setIsInit(false);
+    }
+  }, [isInit, setListeners, listeners, selectedListener, listenerAgent]);
+  
+  useEffect(() => {
+    if (isDraged && scenario) {
+      reorderScenario();
+      setIsDraged(false);
+    }
+  }, [isDraged, scenario, reorderScenario]);
+
   return (
       <div>
         <div className="MakeScenario">
-          <Users users={users} setUsers={setUsers} selectedUser={selectedUser} setSelectedUser={setSelectedUser}/>
-          <div>
+          <div className="user-list-wrap">
+            <h1>청취자 선택</h1>
+            <Listeners listeners={listeners} selectedListener={selectedListener} setSelectedListener={setSelectedListener}/>
+          </div>
+
+          <div className="user-agent-wrap">
             <h1>청취자 환경</h1>
+            <ListenerType listenerAgent={listenerAgent} appVersion={appVersion} setAppVersion={setAppVersion} setListenerAgent={updateListenerAgent} updateAppVersion={updateAppVersion}/>
           </div>
-          <UserType users={users} setUsers={setUsers} selectedUser={selectedUser} appVersion={appVersion} setAppVersion={setAppVersion} userAgent={userAgent} setUserAgent={setUserAgent}/>
 
-          <div>
+          <div className="user-event-wrap">
             <h1>청취자 이벤트</h1>
+            <CommandInput setScenario={updateScenario}/>
           </div>
 
-          <CommandInput selectedUser={selectedUser} users={users} setUsers={setUsers} appVersion={appVersion} userAgent={userAgent} scenario={scenario} setScenario={setScenario} />
-
-          {/* 할 일 Item 리스트 */}
           <DndProvider backend={HTML5Backend}>
             <Scenario    // (1)
-                title={'시나리오'}
-                users={users}
-                setUsers={setUsers}
-                scenario={scenario}
-                setScenario={setScenario}
+              title={'시나리오'}
+              listeners={listeners}
+              setListeners={setListeners}
+              scenario={scenario}
+              setScenario={setScenario}
+              deleteScenario={deleteScenario}
+              reorderScenario={reorderScenario}
+              setIsDraged={setIsDraged}
             />
           </DndProvider>
-        </div>
-        {!isScenarioEmpty() && (
-            <div className='scenario-btn-box'>
-              <button
-                  type="submit"
-                  onClick={onClickAddButton}
-                  className="create-scenario-btn"
-              >
-                시나리오 생성하기
-              </button>
-            </div>
-        )}
+
+        {!isScenarioEmpty() &&
+          <div className='scenario-btn-box'>
+            <button
+              type="submit"
+              onClick={onClickSubmit}
+              className="create-scenario-btn"
+            >
+              시나리오 생성하기
+            </button>
+          </div>}
       </div>
+    </div>
   );
 };
 

@@ -1,31 +1,34 @@
 import React, {useCallback} from 'react';
-import PropTypes from 'prop-types';
 import ScenarioItem from './ScenarioItem';
 import update from 'immutability-helper';
 
-const Scenario = ({ users, setUsers, title, scenario, setScenario }) => {
+const Scenario = ({ listeners, setListeners, title, scenario, setScenario, deleteScenario, reorderScenario, setIsDraged }) => {
   const moveCard = useCallback((dragIndex, hoverIndex) => {
-    const dragCard =scenario[dragIndex];
+    const dragCard = scenario[dragIndex];
+
     setScenario(update(scenario, {
       $splice: [
         [dragIndex, 1],
         [hoverIndex, 0, dragCard],
       ],
     }));
-  }, [scenario]);
+    
+    setIsDraged(true);
+  }, [scenario, setScenario, setIsDraged]);
 
-  const renderCard = (scenarioItem, index) => {
+  const renderCard = (scenarioItem, index, deleteScenario, reorderScenario) => {
     return (
       <ScenarioItem
-        key={scenarioItem.id}
+        key={index}
         index={index}
-        id={scenarioItem.id}
+        id={index}
         scenarioItem={scenarioItem}
-        users={users}
-        setUsers={setUsers}
+        listeners={listeners}
+        setListeners={setListeners}
         scenario={scenario}
         setScenario={setScenario}
         moveCard={moveCard}
+        deleteScenario={deleteScenario}
       />
     );
   }
@@ -40,25 +43,15 @@ const Scenario = ({ users, setUsers, title, scenario, setScenario }) => {
         <span className='todoapp__item-ctx'>DATA</span>
       </div>
       <ul className="todoapp__list-ul">
-        {scenario && scenario.map((scenarioItem, i) => {
+        {scenario?.length > 0 && scenario.map((scenarioItem, i) => {
+          console.log('scenarioItem', scenarioItem);
           return(
-            renderCard(scenarioItem, i)
+            renderCard(scenarioItem, i, deleteScenario)
           );
         })}
       </ul>
     </div>
   );
 }
-
-Scenario.propTypes = {
-  title: PropTypes.string.isRequired,
-  scenario: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      value: PropTypes.object.isRequired,
-    })
-  ),
-  setScenario: PropTypes.func.isRequired,
-};
 
 export default Scenario;
