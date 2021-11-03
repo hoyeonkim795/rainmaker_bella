@@ -5,7 +5,6 @@ const Listeners = ({ listeners, selectedListener, setSelectedListener }) => {
 
     const handleChange = (e) => {
       const selectedListener = e.target.value;
-
       setSelectedListener(selectedListener);
     }
 
@@ -30,8 +29,5 @@ const Listeners = ({ listeners, selectedListener, setSelectedListener }) => {
       </div>
     );
 };
-
-// props 값 검증
-
 
 export default Listeners;

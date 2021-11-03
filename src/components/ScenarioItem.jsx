@@ -26,35 +26,20 @@ const ScenarioItem = ({ index, id, moveCard, scenarioItem, scenario, deleteScena
       }
       const dragIndex = item.index;
       const hoverIndex = index;
-      // Don't replace items with themselves
       if (dragIndex === hoverIndex) {
         return;
       }
-      // Determine rectangle on screen
       const hoverBoundingRect = ref.current?.getBoundingClientRect(); // rendering 된 사각형에 값을 받아옴.
-      // Get vertical middle
       const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2; //다른 컴포넌트의 높이값 절반 이상일때
-      // Determine mouse position
       const clientOffset = monitor.getClientOffset();
-      // Get pixels to the top
       const hoverClientY = clientOffset.y - hoverBoundingRect.top;
-      // Only perform the move when the mouse has crossed half of the items height
-      // When dragging downwards, only move when the cursor is below 50%
-      // When dragging upwards, only move when the cursor is above 50%
-      // Dragging downwards
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
         return;
       }
-      // Dragging upwards
       if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
         return;
       }
-      // Time to actually perform the action
       moveCard(dragIndex, hoverIndex);
-      // Note: we're mutating the monitor item here!
-      // Generally it's better to avoid mutations,
-      // but it's good here for the sake of performance
-      // to avoid expensive index searches.
       item.index = hoverIndex;
     },
   });
@@ -74,25 +59,6 @@ const ScenarioItem = ({ index, id, moveCard, scenarioItem, scenario, deleteScena
     deleteScenario(index);
   }
 
-  // 삭제 기능
-
-  // const onSubmitDeleteButton = (selectedKey) => {
-  //  if (window.confirm('삭제하시겠습니까?')) {
-    // const nextScenario = scenario.map((item, key) => ({
-    //   ...item,
-    //   deleted: item.id === scenarioItem.id ? true : item.deleted,
-    // }));
-    // const nextScenario = scenario.filter((item)=> item.id != scenarioItem.id)
-    // const finalScenario = nextScenario.map((item) => ({
-    //   ...item,
-    //   id: item.id >= scenarioItem.id ? item.id-1 : item.id,
-    // }));
-    // setScenario(finalScenario);
-  //  console.log("삭제!!")
-    
-  //  onClickDeleteButton(selectedKey);
-  // }};
-
   return(
     <li ref={ref} style={{ ...style, opacity }} data-handler-id={handlerId} className="todoapp__item">
       {/* 아이템 내용 */}
@@ -101,9 +67,9 @@ const ScenarioItem = ({ index, id, moveCard, scenarioItem, scenario, deleteScena
         {/*옵션 값들*/}
         <span className="todoapp__item-ctx"> {scenarioItem?.period}</span>
         <span className="todoapp__item-ctx"> {scenarioItem?.count}</span>
-        {scenarioItem?.value==="present" && (
+        {scenarioItem?.command==="present" && (
           <span className="todoapp__item-ctx">
-            {scenarioItem?.data?.sticker?.label}
+            {scenarioItem?.data?.sticker}
             {/*{scenarioItem.data.amount} / {scenarioItem.data.combo} / {scenarioItem.data.sticker}*/}
           </span>
         )}
@@ -118,19 +84,5 @@ const ScenarioItem = ({ index, id, moveCard, scenarioItem, scenario, deleteScena
     </li>
   );
 }
-
-// ScenarioItem.propTypes = {
-//   scenarioItem: PropTypes.shape({
-//     id: PropTypes.number,
-//     value: PropTypes.object.isRequired,
-//   }),
-//   scenario: PropTypes.arrayOf(
-//     PropTypes.shape({
-//       id: PropTypes.number.isRequired,
-//       value: PropTypes.object.isRequired,
-//     })
-//   ),
-//   // setScenario: PropTypes.func.isRequired,
-// };
 
 export default ScenarioItem;

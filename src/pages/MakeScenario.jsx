@@ -25,17 +25,18 @@ const MakeScenario = ({ location }) => {
   const [isDraged, setIsDraged] = useState(false);
 
   const updateListenerAgent = useCallback((listenerAgent) => {
-    const updateListeners = listeners.map((data, key) => {
+    const  updateListeners = listeners.map((data, key) => {
       if (parseInt(selectedListener, 10) !== key) return data;
 
       return { ...data, ...{user_agent: listenerAgent}}
     });
 
-    console.log('update listeners with user agent', updateListeners);
+    console.log('update users with user agent', updateListeners);
     setListenerAgent(listenerAgent);
-    setListeners(updateListeners);
+    setListeners( updateListeners);
   }, [setListenerAgent, listeners, setListeners, selectedListener]);
-  
+
+
   const updateAppVersion = useCallback(() => {
     const updateListeners = listeners.map((data, key) => {
       if (parseInt(selectedListener, 10) !== key) return data;
