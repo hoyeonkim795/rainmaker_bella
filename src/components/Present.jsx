@@ -1,7 +1,7 @@
 import React, {useCallback, useState} from "react";
 import Select from "react-select";
 
-const Present = (amount, combo, sticker, onChangeAmountInput, onChangeComboInput,handleStickerChange) => {
+const Present = (amount, combo, sticker, onChangeAmountInput, onChangeComboInput, onChangeStickerInput) => {
     const [stickerOptions, setStickerOptions] = useState([
         { value: "sticker_jp_juice", label: "sticker_jp_juice" },
     ])
@@ -42,7 +42,7 @@ const Present = (amount, combo, sticker, onChangeAmountInput, onChangeComboInput
                         sticker={sticker}
                         placeholder="sticker"
                         options={stickerOptions}
-                        onChange={handleStickerChange}
+                        onChange={onChangeStickerInput}
                     />
                 </div>
             </div>

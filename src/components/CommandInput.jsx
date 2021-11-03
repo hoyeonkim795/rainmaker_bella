@@ -27,7 +27,9 @@ const CommandInput = ({ setScenario }) => { // (1)
     setCombo(e.target.value);
   };
 
-  const handleStickerChange = useCallback((inputValue) => setSticker(inputValue), []);
+  const onChangeStickerInput = (e) => {
+    setSticker(e.target.value)
+  };
 
   const onChangePeriodInput = (e) => {
     setPeriod(e.target.value);
@@ -119,7 +121,7 @@ const CommandInput = ({ setScenario }) => { // (1)
         </div>
       </div>
       {/present/gi.test(value.command) && (
-        <Present combo={combo} amount={amount} sticker={sticker} onChangeAmountInput={onChangeAmountInput} onChangeComboInput={onChangeComboInput} handleStickerChange={handleStickerChange}/>
+        <Present combo={combo} amount={amount} sticker={sticker} onChangeAmountInput={onChangeAmountInput} onChangeComboInput={onChangeComboInput} onChangeStickerInput={onChangeStickerInput}/>
       )}
 
       {/* 입력 후 아이템 추가 버튼 */}
