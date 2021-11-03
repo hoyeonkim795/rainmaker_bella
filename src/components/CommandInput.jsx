@@ -40,7 +40,6 @@ const CommandInput = ({ setScenario }) => { // (1)
       setCommand(options[0]?.command);
   };
 
-
   return (
     <div className="input-box-container">
         {/* 필수값 */}
