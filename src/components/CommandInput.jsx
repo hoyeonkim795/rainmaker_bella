@@ -4,14 +4,14 @@ import Select from "react-select";
 
 const CommandInput = ({ setScenario }) => { // (1)
 
-  const [value, setValue] = useState('');
+  const [command, setCommand] = useState('');
   const [sticker, setSticker] = useState('');
-  const [options, setOptions] = useState([
-    { command: "leave", label: "퇴장" },
-    { command: "join", label: "입장" },
-    { command: "chat", label: "채팅" },
-    { command: "present", label: "스푼" },
-    { command: "like", label: "좋아요" },
+  const [options] = useState([
+    { value: "leave", label: "퇴장" },
+    { value: "join", label: "입장" },
+    { value: "chat", label: "채팅" },
+    { value: "present", label: "스푼" },
+    { value: "like", label: "좋아요" },
   ])
 
   const [period, setPeriod] = useState(1000);
@@ -39,25 +39,29 @@ const CommandInput = ({ setScenario }) => { // (1)
     setCount(e.target.value);
   };
 
-  const handleChange = useCallback((inputValue) => {
-    console.log('inputValue', inputValue);
-    setValue(inputValue);
-  }, [setValue]);
+  const onHandleChange = (e) => {
+    const inputValue = e.target;
+    setCommand(inputValue)
+  }
+  // const handleChange = useCallback((inputValue) => {
+  //   console.log('inputValue', inputValue);
+  //   setValue(inputValue);
+  // }, [setValue]);
 
-  const handleCreate = useCallback(
-    (inputValue) => {
-      const newValue = { command: inputValue.toLowerCase(), label: inputValue };
-
-      setOptions([...options, newValue]);
-      setValue(newValue);
-    },
-    [options]
-  );
+  // const handleCreate = useCallback(
+  //   (inputValue) => {
+  //     const newValue = { command: inputValue.toLowerCase(), label: inputValue };
+  //
+  //     setOptions([...options, newValue]);
+  //     setValue(newValue);
+  //   },
+  //   [options]
+  // );
 
 
   const onClickAddButton = () => {
-    console.log('value', value)
-    const commandData = value;
+    console.log('command', command)
+    const commandData = command;
     let updateCommands = null;
     let data = null;
       if (/present/gi.test(commandData?.value)) {
@@ -67,10 +71,10 @@ const CommandInput = ({ setScenario }) => { // (1)
         data = { amount, combo, sticker }
       }
 
-      updateCommands = { period, count, ...data ? { data } : null, ...value }
+      updateCommands = { period, count, ...data ? { data } : null, ...{ command } }
 
       setScenario(updateCommands);
-      setValue('');
+      setCommand('');
   };
 
 
@@ -78,15 +82,31 @@ const CommandInput = ({ setScenario }) => { // (1)
     <div className="input-box-container">
         {/* 필수값 */}
         <div className="select_events_box">
-          <Select
-            type="text"
-            name="scenarioItem"
-            value={value}
-            placeholder="청취자 행위를 선택해주세요"
-            options={options}
-            onChange={handleChange}
-            onCreateOption={handleCreate}
-          />
+          <select
+              className="select_os_box"
+              onChange={onHandleChange}
+              value={command}
+              placeholder="청취자 행위를 선택해주세요"
+          >
+            {
+              options.map((data, key) => {
+                return (
+                    <option key={key} value={data}>
+                      {data?.label}
+                    </option>
+                )
+              })
+            }
+          </select>
+          {/*<Select*/}
+          {/*  type="text"*/}
+          {/*  name="scenarioItem"*/}
+          {/*  value={value}*/}
+          {/*  placeholder="청취자 행위를 선택해주세요"*/}
+          {/*  options={options}*/}
+          {/*  onChange={handleChange}*/}
+          {/*  // onCreateOption={handleCreate}*/}
+          {/*/>*/}
         </div>
       <div className="input_default_setting_box">
         <div className="input_name">
@@ -120,7 +140,7 @@ const CommandInput = ({ setScenario }) => { // (1)
           />
         </div>
       </div>
-      {/present/gi.test(value.command) && (
+      {/present/gi.test(command.value) && (
         <Present combo={combo} amount={amount} sticker={sticker} onChangeAmountInput={onChangeAmountInput} onChangeComboInput={onChangeComboInput} onChangeStickerInput={onChangeStickerInput}/>
       )}
 
