@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-const ListenerType=({updateAppVersion, appVersion, setAppVersion, listenerAgent, setListenersAgent}) => {
+const ListenerType=({updateAppVersion, appVersion, setAppVersion, listenerAgent, setListenerAgent}) => {
     const [options] = useState([
         {
             label: "Android", value: "Android"
@@ -20,7 +20,7 @@ const ListenerType=({updateAppVersion, appVersion, setAppVersion, listenerAgent,
     const handleChange = (e) => {
         const listenerAgent = e.target.value;
 
-        setListenersAgent(listenerAgent)
+        setListenerAgent(listenerAgent)
     }
 
     const onKeyDownAppVersionInput = (e) => {
