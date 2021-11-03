@@ -5,6 +5,7 @@ import Select from "react-select";
 const CommandInput = ({ setScenario }) => { // (1)
 
   const [command, setCommand] = useState('');
+  const [label, setLabel] = useState('');
   const [sticker, setSticker] = useState('');
   const [options] = useState([
     { value: "leave", label: "퇴장" },
@@ -40,13 +41,12 @@ const CommandInput = ({ setScenario }) => { // (1)
   };
 
   const onHandleChange = (e) => {
-    const inputValue = e.target;
-    setCommand(inputValue)
+    setCommand(e.target.value)
   }
-  // const handleChange = useCallback((inputValue) => {
+  // const onHandleChange = useCallback((inputValue) => {
   //   console.log('inputValue', inputValue);
-  //   setValue(inputValue);
-  // }, [setValue]);
+  //   setCommand(inputValue);
+  // }, [setCommand]);
 
   // const handleCreate = useCallback(
   //   (inputValue) => {
@@ -60,7 +60,7 @@ const CommandInput = ({ setScenario }) => { // (1)
 
 
   const onClickAddButton = () => {
-    console.log('command', command)
+    console.log('command !!', command)
     const commandData = command;
     let updateCommands = null;
     let data = null;
@@ -71,7 +71,8 @@ const CommandInput = ({ setScenario }) => { // (1)
         data = { amount, combo, sticker }
       }
 
-      updateCommands = { period, count, ...data ? { data } : null, ...{ command } }
+
+      updateCommands = { period, count, ...data ? { data } : null, ... { command } }
 
       setScenario(updateCommands);
       setCommand('');
@@ -91,7 +92,7 @@ const CommandInput = ({ setScenario }) => { // (1)
             {
               options.map((data, key) => {
                 return (
-                    <option key={key} value={data}>
+                    <option key={key} value={data} >
                       {data?.label}
                     </option>
                 )
